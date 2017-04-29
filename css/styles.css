@@ -1,0 +1,12 @@
+body {
+    display: flex;
+    min-height: 100vh; /* Altura minima */
+    width: 100%; /* Alinhamento vertical */
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center; /* Justifica o conteudo sempre ao centro */
+    flex-direction: column; /* Ordenação dos itens como colunas e não como linhas */
+    overflow-y: hidden; /* Ocultar barra de rolagem vertical */
+    overflow-x: hidden; /* Ocultar barra de rolagem horizontal */
+}
