@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML CBARATO</title>
+    <style>
+        .top {
+            text-align: center;
+            top: 0;
+        }
+
+        body {
+            font-size: xx-large;
+            /* color: white; */
+            /* background-color: black; */
+        }
+
+        .split {
+            height: 100%;
+            width: 50%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .left {
+            left: 0;
+            /* background-color: #111; */
+        }
+
+        .right {
+            right: 0;
+            /* background-color: red; */
+        }
+
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .centered img {
+            width: 150px;
+            border-radius: 50%;
+        }
+
+        .container {
+            border: 2px solid #ccc;
+            background-color: #eee;
+            border-radius: 5px;
+            padding: 16px;
+            margin: 16px 0
+        }
+
+        .container::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .container img {
+            float: left;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+
+        .container span {
+            font-size: 20px;
+            margin-right: 15px;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                text-align: center;
+            }
+
+            .container img {
+                margin: auto;
+                float: none;
+                display: block;
+            }
+        }
+
+        .div-select {
+            width: 40%;
+            /* Tamanho final do select */
+            overflow: hidden;
+            /* Esconde o conteúdo que passar do tamanho especificado */
+        }
+
+        .div-select select {
+            /* Imagem de fundo (Seta) */
+            background-position: 5% center;
+            /*Posição da imagem do background*/
+            width: 1%;
+            /* Tamanho do select, maior que o tamanho da div "div-select" */
+            height: 1%;
+            /* altura do select, importante para que tenha a mesma altura em todo os navegadores */
+            font-family: Arial, Helvetica, sans-serif;
+            /* Fonte do Select */
+            font-size: 18px;
+            /* Tamanho da Fonte */
+            padding: 13px 20px 13px 12px;
+            /* Configurações de padding para posicionar o texto no campo */
+            /* color: #fff; */
+            /* Cor da Fonte */
+            text-indent: 0.01px;
+            /* Remove seta padrão do FireFox */
+            text-overflow: "";
+
+            /* Remove seta padrão do FireFox */
+            /* select::-ms-expand {
+                display: none;
+            } */
+
+            /* Remove seta padrão do IE*/
+
+        }
+
+        #announcement {
+            -webkit-appearance: none;
+            /* Remove estilo padrão do Chrome */
+            -moz-appearance: none;
+            /* Remove estilo padrão do FireFox */
+            appearance: none;
+            /* Imagem de fundo (Seta) */
+            background-position: 1% center;
+            /*Posição da imagem do background*/
+            width: 60%;
+            /* Tamanho do select, maior que o tamanho da div "div-select" */
+            height: 1%;
+            /* Altura do select, importante para que tenha a mesma altura em todo os navegadores */
+            /* border: 1px solid #ddd; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top">
+        <!-- <h1>CBARATO</h1> -->
+    </div>
+
+    <div class="split left">
+        <!-- <div class="centered">
+            <img src="/img/img_avatar2.png" alt="Avatar woman">
+            <h2>Jane Flex</h2>
+            <p>Some text.</p>
+        </div> -->
+        <fieldset>
+            <legend>Resumo de custos ML</legend>
+            <form action="#">
+                <legend>
+                    <label for="">Preço do seu produto:</label>
+                </legend>
+                <!-- <input class="valueProduct" id="valueProduct" type="text" step="any" value="" required /> -->
+                <input class="" onkeyup="calcML()" id="valueProduct" type="text" step="any" value="" required />
+                <legend>
+                    <label for="announcement">Tipo de anúncio:</label>
+                </legend>
+                <div class="div-select">
+                    <select name="announcement" id="announcement" onchange="selectAnnouncement()" required>
+                        <option value=""></option>
+                        <option value="premium">Premium</option>
+                        <option value="classic">Clássico</option>
+                    </select>
+                </div>
+                <fieldset>
+                    <legend>
+                        <label for="">Dropshipping:</label>
+                    </legend>
+                    <div>
+                        <input type="radio" id="drops" name="drop" value="Sim">
+                        <label for="sim">Sim</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="dropn" name="drop" value="Não">
+                        <label for="nao">Não</label>
+                    </div>
+                </fieldset>
+
+                <legend>
+                    <label for="">Tarifa de venda:</label>
+                </legend>
+                <input id="taxAnnouncement" type="text" step="any" />
+                <fieldset>
+                    <legend>
+                        <label for="">Envio pelo Mercado Envios:</label>
+                    </legend>
+                    <div id="divTaxEnvio" style="display: none;">
+                        <legend>
+                            <label for="">Tarifa de Envio:</label>
+                        </legend>
+                        <input id="taxEnvio" type="text" step="any" />
+                    </div>
+                    <div>
+                        <input type="radio" id="mEnvioYes" name="mEnvio" value="Sim">
+                        <label for="sim">Sim</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="mEnvioNo" name="mEnvio" value="Não">
+                        <label for="nao">Não</label>
+                    </div>
+                </fieldset>
+                <legend>
+                    <label for="">Você receberá por cada venda:</label>
+                </legend>
+                <input id="netValue" type="text" step="any" />
+                <br />
+                <!-- <input class="formCalc" type="submit" value="calcular" /> -->
+            </form>
+        </fieldset>
+    </div>
+    <div class="split right">
+        <!-- <div class="centered">
+            <img src="/img/img_avatar.png" alt="Avatar man">
+            <h2>John Doe</h2>
+            <p>Some text here too.</p>
+        </div> -->
+        <fieldset>
+            <legend>Resumo de custos B2W</legend>
+            <!-- <h2>Responsive Testimonials</h2>
+            <p>Resize the browser window to see the effect.</p> -->
+
+            <div class="container">
+                <img src="/img/bandmember.jpg" alt="Avatar" style="width:90px">
+                <p><span>Chris Fox.</span> CEO at Mighty Schools.</p>
+                <p>John Doe saved us from a web disaster.</p>
+            </div>
+
+            <div class="container">
+                <img src="/img/avatar_g2.jpg" alt="Avatar" style="width:90px">
+                <p><span>Rebecca Flex.</span> CEO at Company.</p>
+                <p>No one is better than John Doe.</p>
+            </div>
+        </fieldset>
+
+    </div>
+
+</body>
+<script>
+    var timer;
+    function calcML() {
+        clearTimeout(timer);
+        timer = setTimeout(function selectAnnouncement() {
+            alert('Selecione um tipo de anúncio!');
+        }, 1200);
+    }
+
+    function selectAnnouncement() {
+        //Tarifa por venda para anúncios de produtos de R$ 120 ou mais | Clássico                           | Premium
+        //              Grátis                                         | 11% por venda                      | 16% por venda
+        //Tarifa por venda para anúncios de menos de R$ 120            | Clássico                           | Premium
+        //              Grátis                                         | 11% por venda + R$ 5 por unidade   | 16% por venda + R$ 5 por unidade
+        var x = document.getElementById("announcement").value;
+        switch (x) {
+            case 'premium':
+                //alert('Premium'); 
+                calcTypeAnnouncement(x);
+                break;
+            case 'classic':
+                calcTypeAnnouncement(x);
+                break;
+            default:
+                // alert('Selecione um tipo de anúncio!');
+                calcML();
+        }
+    }
+
+    function calcOptionsSale(valueProduct, typeAnnouncement) {
+        var percentageTypeAnnouncement = 0;
+        var mercadoEnvio = 0;
+        //valueProduct = valueProduct < 120 ? valueProduct - 5 : valueProduct;
+        percentageTypeAnnouncement = typeAnnouncement == 'classic' ? 11 : 16;
+        mercadoEnvio = 30.90;
+        document.getElementById("mEnvioYes").checked = true;
+        var inputs = document.querySelectorAll('input[name="mEnvio"]');
+        // var inputs = document.querySelectorAll('input[type="radio"]');
+        for (var i = 0; i < inputs.length; i++) { inputs[i].disabled = 'true'; }
+        document.getElementById("divTaxEnvio").style.display = "block";
+        document.getElementById("taxEnvio").value = mercadoEnvio.toString();
+        document.getElementById("taxEnvio").disabled = true;
+        alert(`OBS: O envio será por mercado envios no valor ${mercadoEnvio} !`);
+        return { percentageTypeAnnouncement: percentageTypeAnnouncement, mercadoEnvio: mercadoEnvio }
+    }
+
+    function calcTypeAnnouncement(typeAnnouncement) {
+        //frete gratis por minha conta adicionado no produto Dropshipping   op 1
+        //frete gratis produto sai da loja custo 30,90                      op 2
+        //frete por conta do comprador necessário adicionar categoria       op 3
+        //frete por conta do comprador a combinar com o vendedor            op 4
+        var valueProduct = parseFloat(document.getElementById('valueProduct').value);
+        var dropShipping = document.getElementById("drops").checked
+
+        if (valueProduct >= 120 && !dropShipping) {
+            var data = calcOptionsSale(valueProduct, typeAnnouncement);
+        }
+        else if (valueProduct < 120 && !dropShipping) {
+            var data = calcOptionsSale(valueProduct, typeAnnouncement);
+        }
+        var percentage = parseFloat(data.percentageTypeAnnouncement);
+        var percentageToReal = valueProduct * (percentage / 100);
+        var percentageToRealToView = percentageToReal.toLocaleString('pt-br', { minimumFractionDigits: 2 });
+        document.getElementById('taxAnnouncement').value = percentageToRealToView;
+        document.getElementById("taxAnnouncement").disabled = true;
+
+        var valueProductLessPercentAndEnvio = valueProduct - (percentageToReal + data.mercadoEnvio)
+        valueProductLessPercentAndEnvio = valueProduct < 120 ? valueProductLessPercentAndEnvio - 5 : valueProductLessPercentAndEnvio;
+
+        document.getElementById('netValue').value = (valueProductLessPercentAndEnvio).toLocaleString('pt-br', { minimumFractionDigits: 2 });
+        document.getElementById("netValue").disabled = true;
+
+    }
+                // var atual=600000.00;
+                // var atual = parseFloat(document.getElementById('valueProduct').value); 
+                // var atual2 = parseFloat(document.getElementById('netValue').value); //com R$ 
+                // var f = atual.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }); // //sem R$ 
+                // var f2 = atual.toLocaleString('pt-br', { minimumFractionDigits: 2 }); // console.log(f); // console.log(f2);
+</script>
+
+</html>
