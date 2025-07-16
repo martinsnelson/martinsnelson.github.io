@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+body, html {
+  height: 100%;
+  overflow: hidden;
+}
+
+.matrix-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 0;
+}
+
+#matrix {
+  display: block;
+}
+
+.login-box {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.75);
+  border: 2px solid #0f0;
+  border-radius: 10px;
+  color: #0f0;
+  padding: 30px;
+  max-width: 350px;
+  margin: auto;
+  top: 15vh;
+  text-align: center;
+  box-shadow: 0 0 20px #0f0;
+}
+
+.login-box input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  background: black;
+  border: 1px solid #0f0;
+  color: #0f0;
+  border-radius: 5px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #0f0;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-box .message {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+@media (max-width: 400px) {
+  .login-box {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+.progress-bar-container {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 255, 0, 0.1);
+  border-radius: 3px;
+  margin-top: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px #0f0 inset;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #0f0, #00ff00);
+  border-radius: 3px;
+  box-shadow: 0 0 10px #0f0;
+  animation: progress-matrix 2s linear infinite;
+}
+
+@keyframes progress-matrix {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

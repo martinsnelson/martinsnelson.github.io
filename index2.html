@@ -1,41 +1,105 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <title>Nelson Martins</title>
-    <meta 
-    name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="description" content="Apps Nelson Martins" />
-    <meta
-      name="keywords"
-      content="HTML5,CSS3,TypeScript,Angular,Java,Mongodb,Firebase,Jax-rs,Hibernate,Entity Framework,lint,test,e2e,jasmine,Jpa,Csharp,C#,JavaScript"
-    />
-    <meta name="author" content="Nelson Martins" />
-    <link rel="icon" type="image/png" sizes="32x32" href="icon/favicon.png" />
-    <!-- Bootstrap bootswatch lumen -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/styles.css" />
-  </head>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome Matrix - Nelson</title>
+  <link rel="stylesheet" href="index2.css" />  
+</head>
+<body>
 
-  <body>
-    <h1>Nelson Martins</h1>
-    <!-- <p>Ligue <a href="tel:+5521993728120">(21) 99372-8120</a></p> -->
-    <p>WhatsApp <a href="tel:+13057808046">(305) 780-8046</a></p>
-    <p><a href="mailto:nelsontecti@gmail.com">E-mail</a></p>
+  <!-- HEADER COM ANIMAÇÃO -->
+  <header>
+    <canvas id="matrixHeader"></canvas>
+    <div class="header-content">
+      <div>
+        <h1>Welcome the Matrix</h1>
+        <p>Você está logado! Aproveite o mundo.</p>
+      </div>
+      <div class="menu-container">
+        <div class="hamburger" id="hamburger">&#9776;</div>
+        <div class="dropdown" id="dropdown">
+          <button onclick="logout()">Sair</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main>
+    <h2>Content</h2>
+    <p>Esta é a página protegida após login.</p>
+   
+    <button id="openModalBtn" class="matrix-btn">Criar Item</button>
 
-    <h1>Apps & +</h1>
+    <!-- Modal de Criação -->
+    <div id="itemModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModalBtn" class="close">&times;</span>
+        <h2>Criar Item</h2>
+        <input type="text" id="name" placeholder="Nome"><br><br>
+        <textarea id="description" placeholder="Descrição (até 1MB)"></textarea><br>
+        <input type="file" id="fileInput"><br>
+        <progress value="0" max="100" id="uploadProgress"></progress><br>
+        <button onclick="createItem(); closeModal();" class="matrix-btn">Salvar</button>
+      </div>
+    </div>
 
-    <ul>
-      <li><a href="/apks.html" target="_blank">APKs</a></li>
-      <li>
-        <a href="https://apfirebase.firebaseapp.com/" target="_blank"
-          >App Firebase</a
-        >
-      </li>
-    </ul>
+    <!-- Modal de Visualização -->
+    <div id="modal" class="modal" style="display:none;">
+      <div class="modal-content" style="position:relative; max-height:90vh; overflow:auto; padding-top:60px;">
+        <!-- Botão Fechar -->
+        <button id="modalClose" class="close" style="position:absolute; top:10px; right:15px;">&times;</button>
+        
+        <!-- Botão Copiar -->
+        <button onclick="copyDescription()" class="matrix-btn" style="position:absolute; top:10px; left:15px; font-size:14px; padding:6px 10px;">Copiar código</button>
+        
+        <!-- Código -->
+        <pre style="background:#111; padding:20px; border:1px solid #0f0; border-radius:5px; margin-top:20px; overflow:auto;">
+<code id="modalDescription" style="white-space:pre-wrap; word-wrap:break-word; color:#0f0;"></code>
+        </pre>
+      </div>
+    </div>
 
-    <script src="js/bootstrap.min.js"></script>
-  </body>
+    <h2>Itens</h2>
+    <ul id="itemList"></ul>
+    <div class="table-container">
+      <table id="itemTable">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Arquivo</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Itens serão inseridos aqui dinamicamente -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- FOOTER COM ANIMAÇÃO -->
+  <footer>
+    <canvas id="matrixFooter"></canvas>
+    <div class="footer-content">
+      <p>&copy; 2025 Matrix - Nelson</p>
+    </div>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+  <!-- Firebase config e scripts -->
+  <script src="about.js"></script>
+  <script src="storage.js"></script>
+  <script src="auth.js"></script>
+  <script src="crud.js"></script>
+  <script src="index2.js"></script>
+
+  
+</body>
 </html>

@@ -1,0 +1,548 @@
+/* body, html {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  background-color: black;
+  color: #0f0;
+}
+
+header, footer {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+  background-color: black;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.header-content, .footer-content {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Título e texto no header 
+.header-content > div:first-child {
+  flex-grow: 0;
+}
+
+/* Menu hambúrguer no canto direito 
+.menu-container {
+  margin-left: auto; /* empurra para direita 
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.hamburger {
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 3;
+  color: #0f0;
+  text-shadow: 0 0 3px #0f0;
+}
+
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #000;
+  border: 1px solid #0f0;
+  box-shadow: 0 0 10px #0f0;
+  padding: 8px;
+  display: none;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.dropdown.active {
+  display: flex;
+}
+
+.dropdown button {
+  background-color: #0f0;
+  color: black;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.dropdown button:hover {
+  background-color: #0c0;
+}
+
+main {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Responsividade 
+@media (max-width: 600px) {
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .menu-container {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+/* Container para scroll horizontal em telas pequenas 
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+  border: 1px solid #0f0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #0f0;
+}
+
+/* Estilo da tabela 
+table {
+  border-collapse: collapse;
+  width: 100%;
+  color: #0f0;
+  font-family: monospace;
+}
+
+th, td {
+  border: 1px solid #0f0;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+th {
+  background-color: rgba(0, 255, 0, 0.2);
+  font-weight: bold;
+}
+
+td a {
+  color: #0f0;
+  text-decoration: underline;
+}
+
+td button.delete-btn {
+  background-color: #0f0;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+td button.delete-btn:hover {
+  background-color: #0c0;
+}
+
+/* Responsividade: em telas muito pequenas, permitir scroll horizontal 
+@media (max-width: 600px) {
+  th, td {
+    white-space: nowrap;
+  }
+}
+
+/* Estilo botão 
+  .matrix-btn {
+    background-color: #0f0;
+    border: none;
+    padding: 10px 20px;
+    font-family: monospace;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #0f0;
+    transition: background-color 0.3s ease;
+  }
+  .matrix-btn:hover {
+    background-color: #0c0;
+  }
+
+  /* Modal (escondido por padrão) 
+  .modal {
+    display: none; /* oculto
+    position: fixed;
+    z-index: 1000; /* na frente de tudo 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* scroll se necessário 
+    background-color: rgba(0,0,0,0.75); /* fundo escuro 
+  }
+
+  /* Conteúdo do modal 
+  .modal-content {
+    background-color: black;
+    margin: 10% auto;
+    padding: 20px;
+    border: 2px solid #0f0;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    color: #0f0;
+    font-family: monospace;
+    box-shadow: 0 0 20px #0f0;
+  }
+
+  /* Botão fechar 
+  .close {
+    color: #0f0;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .close:hover {
+    color: #0c0;
+  }
+
+  /* Inputs do formulário 
+  #name, textarea, input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #0f0;
+    border-radius: 5px;
+    background-color: black;
+    color: #0f0;
+    font-family: monospace;
+  }
+
+ .modal {
+  display: none; /* escondido por padrão 
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.75);
+  overflow: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: black;
+  color: #0f0;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #0f0;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  font-family: monospace;
+  white-space: pre-wrap; /* respeita quebras de linha
+}
+
+.modal-close {
+  color: #0f0;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal-close:hover {
+  color: #0c0;
+}
+
+#modalDescription {
+  white-space: pre-wrap;     
+  overflow-wrap: break-word; 
+  max-height: 300px;         
+  overflow-y: auto;          
+  word-break: break-word;    
+} */
+
+/* ********************************************************************************** */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  background-color: black;
+  color: #0f0;
+}
+
+header, footer {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+  background-color: black;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.header-content, .footer-content {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.header-content > div:first-child {
+  flex-grow: 0;
+}
+
+.menu-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.hamburger {
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 3;
+  color: #0f0;
+  text-shadow: 0 0 3px #0f0;
+}
+
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #000;
+  border: 1px solid #0f0;
+  box-shadow: 0 0 10px #0f0;
+  padding: 8px;
+  display: none;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.dropdown.active {
+  display: flex;
+}
+
+.dropdown button {
+  background-color: #0f0;
+  color: black;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.dropdown button:hover {
+  background-color: #0c0;
+}
+
+main {
+  padding: 20px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .menu-container {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+  border: 1px solid #0f0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #0f0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  color: #0f0;
+  font-family: monospace;
+}
+
+th, td {
+  border: 1px solid #0f0;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+th {
+  background-color: rgba(0, 255, 0, 0.2);
+  font-weight: bold;
+}
+
+td a {
+  color: #0f0;
+  text-decoration: underline;
+}
+
+td button.delete-btn {
+  background-color: #0f0;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+td button.delete-btn:hover {
+  background-color: #0c0;
+}
+
+@media (max-width: 600px) {
+  th, td {
+    white-space: nowrap;
+  }
+}
+
+.matrix-btn {
+  background-color: #0f0;
+  border: none;
+  padding: 10px 20px;
+  font-family: monospace;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #0f0;
+  transition: background-color 0.3s ease;
+}
+
+.matrix-btn:hover {
+  background-color: #0c0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: black;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #0f0;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  color: #0f0;
+  font-family: monospace;
+  box-shadow: 0 0 20px #0f0;
+}
+
+.close {
+  color: #0f0;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #0c0;
+}
+
+#name, textarea, input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #0f0;
+  border-radius: 5px;
+  background-color: black;
+  color: #0f0;
+  font-family: monospace;
+}
+
+#modal .modal-inner {
+  background: #000;
+  border: 2px solid #0f0;
+  padding: 20px 20px 40px 20px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  color: #0f0;
+  font-family: monospace;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 0 15px #0f0;
+}
+
+#modal pre {
+  background-color: #111;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #0f0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  max-height: 60vh;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: 1px solid #0f0;
+  color: #0f0;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.copy-btn:hover {
+  background-color: #0f0;
+  color: black;
+}
+
+#modalDescription {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  max-height: 300px;
+  overflow-y: auto;
+  word-break: break-word;
+}
