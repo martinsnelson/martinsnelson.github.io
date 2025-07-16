@@ -24,6 +24,11 @@
       <div class="menu-container">
         <div class="hamburger" id="hamburger">&#9776;</div>
         <div class="dropdown" id="dropdown">
+          <label style="color:#0f0; font-size:14px;">
+            <input type="checkbox" id="toggle" />
+            Auto Click Mouse
+          </label>
+          <hr style="border-color:#0f0; margin:8px 0;">
           <button onclick="logout()">Sair</button>
         </div>
       </div>
@@ -60,7 +65,7 @@
         
         <!-- Código -->
         <pre style="background:#111; padding:20px; border:1px solid #0f0; border-radius:5px; margin-top:20px; overflow:auto;">
-<code id="modalDescription" style="white-space:pre-wrap; word-wrap:break-word; color:#0f0;"></code>
+          <code id="modalDescription" style="white-space:pre-wrap; word-wrap:break-word; color:#0f0;"></code>
         </pre>
       </div>
     </div>
@@ -109,6 +114,36 @@
         window.location.href = "login.html";
       }
     });
+    let autoClickTimer = null;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("toggle");
+
+    toggle.addEventListener("change", () => {
+      if (toggle.checked) {
+        autoClickTimer = setInterval(() => {
+          const { clientX, clientY } = getMousePosition();
+          const el = document.elementFromPoint(clientX, clientY);
+          if (el) el.click();
+        }, 2000);
+        console.log("Auto click iniciado");
+      } else {
+        clearInterval(autoClickTimer);
+        console.log("Auto click parado");
+      }
+    });
+  });
+
+  let currentMousePos = { x: 0, y: 0 };
+
+  function getMousePosition() {
+    return { clientX: currentMousePos.x, clientY: currentMousePos.y };
+  }
+
+  document.addEventListener("mousemove", (e) => {
+    currentMousePos.x = e.clientX;
+    currentMousePos.y = e.clientY;
+  });
   </script>
 
   <!-- Scripts da aplicação -->
