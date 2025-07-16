@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Welcome Matrix - Nelson</title>
   <link rel="stylesheet" href="index2.css" />  
+  <style>
+    body {
+      display: none; /* Só mostra após autenticação */
+    }
+  </style>
 </head>
 <body>
 
@@ -92,8 +97,22 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  
+   <!-- Firebase config -->
+  <script src="firebase-config.js"></script>
 
-  <!-- Firebase config e scripts -->
+  <!-- Verificação de autenticação (depois que Firebase foi carregado) -->
+  <script>
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        document.body.style.display = "block";
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+
+  <!-- Scripts da aplicação -->
   <script src="about.js"></script>
   <script src="storage.js"></script>
   <script src="auth.js"></script>
