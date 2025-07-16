@@ -126,10 +126,8 @@
           const el = document.elementFromPoint(clientX, clientY);
           if (el) el.click();
         }, 2000);
-        console.log("Auto click iniciado");
       } else {
         clearInterval(autoClickTimer);
-        console.log("Auto click parado");
       }
     });
   });
