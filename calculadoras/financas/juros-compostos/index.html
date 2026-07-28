@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simule seus investimentos com a nossa Calculadora de Juros Compostos. Calcule o montante acumulado, os juros totais e confira a evolução mês a mês com gráficos e tabela completa.">
+  <link rel="canonical" href="https://martinsnelson.github.io/calculadoras/financas/juros-compostos/">
+  <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon">
+  
+  <title>Calculadora de Juros Compostos | Simule e Calcule Online</title>
+  
+  <!-- Estilos da calculadora -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Dados Estruturados de BreadcrumbList em JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://martinsnelson.github.io/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Calculadoras",
+        "item": "https://martinsnelson.github.io/calculadoras/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Finanças",
+        "item": "https://martinsnelson.github.io/calculadoras/financas/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Calculadora de Juros Compostos",
+        "item": "https://martinsnelson.github.io/calculadoras/financas/juros-compostos/"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Dados Estruturados de FAQPage em JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "O que são juros compostos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Juros compostos são juros aplicados sobre o montante acumulado de períodos anteriores (conhecido popularmente como 'juros sobre juros'). Diferente dos juros simples, que rendem apenas sobre o valor inicial investido, os juros compostos aceleram o crescimento do patrimônio ao longo do tempo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como usar a calculadora de juros compostos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para simular seus rendimentos, basta informar o Valor Inicial do investimento, a Taxa de Juros (mensal ou anual), o Período da aplicação (em meses ou anos) e o Valor do Investimento Mensal (aporte recorrente). Clique em 'Calcular' para ver os resultados detalhados com gráficos e tabela de evolução."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual é a fórmula de juros compostos com aportes mensais?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A fórmula básica de juros compostos é M = P * (1 + i)^n. Quando existem aportes mensais, calcula-se a soma do montante inicial capitalizado composto com a série de pagamentos uniformes capitalizados de forma composta, gerando o saldo acumulado mês a mês."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como é convertida a taxa anual para mensal na calculadora?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para manter a precisão do cálculo mês a mês, quando informada uma taxa anual, ela é convertida para uma taxa mensal equivalente sob o regime de capitalização composta utilizando a fórmula: i_mensal = (1 + i_anual)^(1/12) - 1."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="calculator-container">
+    
+    <!-- Navegação Breadcrumb -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="../../../">Home</a></li>
+        <li class="breadcrumb-item"><a href="../../">Calculadoras</a></li>
+        <li class="breadcrumb-item"><a href="../">Finanças</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Calculadora de Juros Compostos</li>
+      </ol>
+    </nav>
+
+    <!-- Menu Visual -->
+    <div class="nav-menu-visual" role="navigation" aria-label="Navegação Visual">
+      <a href="../../../">Nelson Dev</a>
+      <span>&raquo;</span>
+      <a href="../../">Calculadoras</a>
+      <span>&raquo;</span>
+      <a href="../">Finanças</a>
+      <span>&raquo;</span>
+      <a href="./">Calculadora de Juros Compostos</a>
+    </div>
+
+    <!-- Título Principal -->
+    <main>
+      <h1 class="main-title" id="calculadora-titulo">Calculadora de Juros Compostos</h1>
+
+      <div class="calculator-grid">
+        
+        <!-- Formulário de Entrada -->
+        <section class="calc-card" aria-labelledby="form-section-title">
+          <div class="section-header">
+            <div class="section-icon" aria-hidden="true">
+              <!-- Ícone de Engrenagem/Formulário -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-.3.06-.61.06-.94s-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24,0-.43.17-.47.41l-.36,2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47,0-.59.22L2.74,8.87c-.12.21-.08.47.12.61l2.03,1.58c-.04.3-.06.63-.06.94s.02.64.06.94L2.86,14.46c-.18.14-.23.41-.12.61l1.92,3.32c.12.22.37.29.59.22l2.39-.96c.5.38,1.03.7,1.62.94l.36,2.54c.05.24.24.41.48.41h3.84c.24,0,.44-.17.47-.41l.36-2.54c.59-.24,1.13-.56,1.62-.94l2.39.96c.22.08.47,0,.59-.22l1.92-3.32c.12-.22.07-.47-.12-.61ZM12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6,3.6,1.62,3.6,3.6-1.62,3.6-3.6,3.6Z"/></svg>
+            </div>
+            <h2 class="section-title" id="form-section-title">Simulador de Juros Compostos</h2>
+          </div>
+
+          <form id="form-juros-compostos" class="form-grid" novalidate>
+            
+            <!-- Valor Inicial -->
+            <div class="form-group">
+              <label for="valor-inicial">Valor Inicial</label>
+              <div class="input-group">
+                <span class="input-addon">R$</span>
+                <input type="number" id="valor-inicial" name="valor-inicial" placeholder="0,00" min="0" step="0.01" required>
+              </div>
+            </div>
+
+            <!-- Investimento Mensal -->
+            <div class="form-group">
+              <label for="aporte-mensal">Investimento Mensal</label>
+              <div class="input-group">
+                <span class="input-addon">R$</span>
+                <input type="number" id="aporte-mensal" name="aporte-mensal" placeholder="0,00" min="0" step="0.01" required>
+              </div>
+            </div>
+
+            <!-- Taxa de Juros -->
+            <div class="form-group">
+              <label for="taxa-juros">Taxa de Juros</label>
+              <div class="input-group">
+                <span class="input-addon">%</span>
+                <input type="number" id="taxa-juros" name="taxa-juros" placeholder="0,00" min="0" step="0.001" required>
+                <select id="tipo-taxa" name="tipo-taxa" aria-label="Periodicidade da taxa de juros">
+                  <option value="mensal">Mensal</option>
+                  <option value="anual" selected>Anual</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Período -->
+            <div class="form-group">
+              <label for="periodo">Período</label>
+              <div class="input-group">
+                <input type="number" id="periodo" name="periodo" placeholder="0" min="1" step="1" required>
+                <select id="tipo-periodo" name="tipo-periodo" aria-label="Unidade do período">
+                  <option value="meses">Meses</option>
+                  <option value="anos" selected>Anos</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="actions-container">
+              <button type="button" id="btn-limpar" class="btn btn-outline">
+                <!-- Ícone Foguete -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,2,12a10,10,0,0,0,10,10,10,10,0,0,0,10-10A10,10,0,0,0,12,2Zm5.57,8c-1.42,1.42-3.87,1.86-5.83,1.38l-1.38,1.38,1.4,1.4a1,1,0,0,1,0,1.41l-.7.71a1,1,0,0,1-1.41,0l-1.4-1.4L6.87,16.29a1,1,0,0,1-1.41,0l-.71-.7a1,1,0,0,1,0-1.41L6.1,12.83l-1.4-1.4A1,1,0,0,1,4.7,10l.71-.7a1,1,0,0,1,1.41,0l1.4,1.4,1.38-1.38C9.12,7.39,9.56,4.94,11,3.52S16.15,2.15,17.57,3.57,19,6.56,17.57,8Z"/></svg>
+                LIMPAR
+              </button>
+              <button type="submit" id="btn-calcular" class="btn btn-primary">
+                <!-- Ícone Calculadora -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,2H5A3,3,0,0,0,2,5V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V5A3,3,0,0,0,19,2ZM7,6H9V8H7V6Zm0,4H9v2H7V10Zm4,8H7V14h4v4Zm4,0H13V16h2v2Zm0-4H13V10h2v4Zm2,4H16V17h1v1Zm2-6H17V10h2v2Zm0-4H11V6H19V8Z"/></svg>
+                CALCULAR
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Resultados (Invisíveis no estado inicial) -->
+        <div id="dynamic-results-area" class="dynamic-results">
+          
+          <!-- Bloco do Resultado Numérico -->
+          <section class="calc-card" style="margin-bottom: 2rem;" aria-labelledby="results-section-title">
+            <div class="section-header">
+              <div class="section-icon" aria-hidden="true">
+                <!-- Ícone Checkmark/Resultados -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,20.42L3.58,15L4.99,13.58L9,17.58L19.01,7.58L20.42,9L9,20.42Z"/></svg>
+              </div>
+              <h2 class="section-title" id="results-section-title">Resultado:</h2>
+            </div>
+            
+            <div class="results-wrapper">
+              <div class="results-grid">
+                
+                <!-- Card 1: Total em Juros -->
+                <div class="result-card">
+                  <h3 class="result-card-title">Total em Juros</h3>
+                  <div class="result-card-value highlight-blue" id="res-total-juros">R$ 0,00</div>
+                </div>
+
+                <!-- Card 2: Valor Total Investido -->
+                <div class="result-card">
+                  <h3 class="result-card-title">Valor Total Investido</h3>
+                  <div class="result-card-value" id="res-total-investido">R$ 0,00</div>
+                </div>
+
+                <!-- Card 3: Valor Total Final -->
+                <div class="result-card">
+                  <h3 class="result-card-title">Valor Total Final</h3>
+                  <div class="result-card-value" id="res-total-final" style="font-weight: 700;">R$ 0,00</div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- Bloco do Gráfico -->
+          <section class="calc-card" aria-labelledby="chart-section-title">
+            <div class="section-header">
+              <div class="section-icon" aria-hidden="true">
+                <!-- Ícone de Gráfico de Pizza/Rosca -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2M13,4.05C16.97,4.5 20,7.8 20.45,11.77C20.25,11.75 20.06,11.75 19.86,11.75C16.03,11.75 13,14.78 13,18.6C13,18.8 13,19 13.03,19.2C9.07,18.75 6,15.45 5.55,11.48C5.75,11.5 5.94,11.5 6.14,11.5C9.97,11.5 13,8.47 13,4.65C13,4.45 13,4.25 12.97,4.05H13Z"/></svg>
+              </div>
+              <h2 class="section-title" id="chart-section-title">Gráfico</h2>
+            </div>
+            
+            <div class="chart-container-wrapper">
+              <div class="chart-wrapper">
+                <canvas id="donutChart" width="250" height="250" aria-label="Gráfico de rosca comparando total investido versus juros acumulados" role="img"></canvas>
+              </div>
+              <div class="chart-legend">
+                <div class="legend-item">
+                  <div class="legend-color color-invested" aria-hidden="true"></div>
+                  <span>Total Investido</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-color color-interest" aria-hidden="true"></div>
+                  <span>Total em Juros</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+      </div>
+
+      <!-- Tabela Mês a Mês Dinâmica (Abaixo dos cards/gráficos e visível apenas pós-cálculo) -->
+      <section class="calculator-grid dynamic-results" id="dynamic-table-area" aria-labelledby="table-section-title">
+        <div class="calc-card table-section">
+          <div class="section-header">
+            <div class="section-icon" aria-hidden="true">
+              <!-- Ícone de Tabela -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6H12L10 4M20 18H4V8H20V18M6 10H14V12H6V10M6 14H18V16H6V14Z"/></svg>
+            </div>
+            <h2 class="section-title" id="table-section-title">Evolução Mensal (Tabela Mês a Mês)</h2>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="table-results" id="table-mensal">
+              <thead>
+                <tr>
+                  <th scope="col">Mês</th>
+                  <th scope="col">Juros do Mês</th>
+                  <th scope="col">Total Investido</th>
+                  <th scope="col">Juros Acumulados</th>
+                  <th scope="col">Valor Acumulado</th>
+                </tr>
+              </thead>
+              <tbody id="table-body-juros">
+                <!-- Preenchido dinamicamente via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conteúdo Complementar Otimizado para SEO -->
+      <article class="seo-content-section">
+        <h2>Como Funciona a Calculadora de Juros Compostos?</h2>
+        <p>A Calculadora de Juros Compostos foi desenvolvida para ajudar você a planejar suas metas financeiras de curto, médio e longo prazo. Seja planejando a criação de uma reserva de emergência, simulando a aposentadoria ou estimando o retorno de investimentos recorrentes, ela traduz de forma exata a força dos juros sobre juros na sua evolução patrimonial.</p>
+        <p>Diferente da rentabilidade simples, onde o rendimento incide unicamente sobre o aporte inicial, no regime de juros compostos os lucros de cada ciclo são somados ao saldo inicial para calcular o rendimento do ciclo seguinte. Isso gera um crescimento exponencial (curva acelerada de rentabilidade), especialmente em períodos prolongados.</p>
+
+        <h2>A Fórmula dos Juros Compostos</h2>
+        <p>A fórmula matemática clássica para calcular o montante acumulado sob regime composto é:</p>
+        
+        <div class="math-formula-box">
+          <div class="formula">M = P &middot; (1 + i)<sup>n</sup></div>
+          <div class="legend">
+            <strong>M</strong> = Montante total final acumulado<br>
+            <strong>P</strong> = Principal (Valor inicial investido)<br>
+            <strong>i</strong> = Taxa de juros por período (em formato decimal, ex: 10% = 0,10)<br>
+            <strong>n</strong> = Número total de períodos (meses ou anos)
+          </div>
+        </div>
+
+        <p>Ao realizar aportes mensais consecutivos, o cálculo incorpora uma progressão geométrica onde cada nova quantia poupada passa a acumular juros individuais pelo tempo restante da aplicação. A nossa ferramenta realiza todo esse trabalho complexo segundo a segundo para você, convertendo e integrando automaticamente taxas e períodos informados.</p>
+
+        <h2>Perguntas Frequentes (FAQ)</h2>
+        <div class="faq-accordion">
+          
+          <details class="faq-item">
+            <summary>O que são juros compostos? <span aria-hidden="true"></span></summary>
+            <div class="faq-content">
+              <p>Juros compostos representam a incidência de juros sobre o valor inicial e também sobre os juros acumulados nos períodos anteriores. É o famoso conceito de "dinheiro gerando mais dinheiro" ou "juros sobre juros", essencial no universo financeiro para multiplicar investimentos a longo prazo.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Qual a diferença entre juros simples e juros compostos? <span aria-hidden="true"></span></summary>
+            <div class="faq-content">
+              <p>Nos juros simples, a taxa incide apenas sobre o valor original investido. Ou seja, o rendimento é igual em todos os meses. Já nos juros compostos, a rentabilidade é calculada sobre o saldo atualizado (capital inicial + juros anteriores), o que gera um crescimento contínuo e progressivamente maior a cada mês.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Como a calculadora realiza a conversão de taxas? <span aria-hidden="true"></span></summary>
+            <div class="faq-content">
+              <p>Se você informar uma taxa anual e simular a evolução mês a mês com aportes, a calculadora realiza a conversão para taxa mensal equivalente de forma geométrica pela fórmula: <code>i_mensal = (1 + i_anual)^(1/12) - 1</code>. Isso garante que a capitalização ocorra perfeitamente e os juros sobre juros reflitam a realidade de forma exata, evitando o erro comum de divisão simples (dividir a taxa anual por 12).</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Como acelerar o efeito dos juros compostos em meu patrimônio? <span aria-hidden="true"></span></summary>
+            <div class="faq-content">
+              <p>Três pilares determinam o poder dos juros compostos:</p>
+              <ul>
+                <li><strong>Tempo:</strong> Quanto mais tempo o dinheiro permanecer investido, maior será a velocidade do crescimento exponencial.</li>
+                <li><strong>Aportes recorrentes:</strong> Realizar novos investimentos mensais aumenta o capital que gera juros.</li>
+                <li><strong>Taxa de rentabilidade:</strong> Taxas melhores aceleram os ganhos, mas é crucial buscar um equilíbrio entre risco e retorno.</li>
+              </ul>
+            </div>
+          </details>
+
+        </div>
+      </article>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="footer-calculator">
+      <p>&copy; 2026 Nelson Dev. Todos os direitos reservados. Otimizado para fins educativos e planejamento pessoal.</p>
+    </footer>
+
+  </div>
+
+  <!-- Biblioteca Chart.js local (baixada anteriormente) -->
+  <script src="chart.umd.min.js"></script>
+  <!-- Lógica JavaScript local da calculadora -->
+  <script src="script.js"></script>
+</body>
+</html>
