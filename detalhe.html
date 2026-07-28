@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Metatags de SEO - Injetadas Dinamicamente via JS com base no Firestore -->
+  <title>Artigo - Nelson Dev</title>
+  <meta name="description" id="seo-meta-desc" content="Leia o artigo completo em Nelson Dev.">
+  <meta name="keywords" id="seo-meta-keys" content="desenvolvimento, programação, nelson dev">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" id="seo-canonical" href="https://martinsnelson.github.io/detalhe.html">
+  
+  <!-- Open Graph / Facebook (Dinâmico) -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" id="og-url" content="https://martinsnelson.github.io/detalhe.html">
+  <meta property="og:title" id="og-title" content="Artigo - Nelson Dev">
+  <meta property="og:description" id="og-desc" content="Leia o artigo completo em Nelson Dev.">
+  <meta property="og:image" id="og-img" content="https://martinsnelson.github.io/img/blog-default.jpg">
+  
+  <!-- Twitter Card (Dinâmico) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" id="twitter-url" content="https://martinsnelson.github.io/detalhe.html">
+  <meta name="twitter:title" id="twitter-title" content="Artigo - Nelson Dev">
+  <meta name="twitter:description" id="twitter-desc" content="Leia o artigo completo em Nelson Dev.">
+  <meta name="twitter:image" id="twitter-img" content="https://martinsnelson.github.io/img/blog-default.jpg">
+
+  <!-- Estilos Globais -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="shortcut icon" href="icon/favicon.ico" type="image/x-icon">
+
+  <!-- Biblioteca Marked.js (CDN Oficial e Segura) para processar Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- =================================================================
+       CONFIGURAÇÃO DO GOOGLE ANALYTICS E GOOGLE ADSENSE
+       Substitua os IDs pelos seus identificadores reais obtidos nos painéis.
+       ================================================================= -->
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- Google AdSense (Script Principal) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Cabeçalho / Menu Superior Responsivo -->
+  <header>
+    <h1><a href="index.html" class="logo">Nelson Dev</a></h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#sec">About</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle">Calculadoras</a>
+        <ul class="dropdown-menu">
+          <li><a href="calculadoras/financas/juros-compostos/">Juros Compostos</a></li>
+        </ul>
+      </li>
+      <li><a href="postagens.html">Postagens</a></li>
+      <li><a href="noticias.html">Notícias</a></li>
+      <li><a href="index.html#sec">Cases</a></li>
+      <li><a href="index.html#sec">Contact</a></li>
+    </ul>
+  </header>
+
+  <!-- Container Principal de Leitura -->
+  <main class="blog-container">
+    <!-- Google AdSense - Banner Superior -->
+    <div class="adsense-banner-container" style="margin: 0 auto 30px auto; text-align: center; max-width: 100%; overflow: hidden;">
+      <span style="display: block; font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; font-family: sans-serif;">Publicidade</span>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="3333333333"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <article class="post-detail-wrapper" id="content-area">
+      <!-- Link de Retorno com Ícone SVG -->
+      <a href="javascript:history.back()" class="post-detail-back" id="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/></svg>
+        Voltar
+      </a>
+
+      <!-- Cabeçalho do Post -->
+      <header class="post-detail-header">
+        <h1 class="post-detail-title" id="post-title">Carregando conteúdo...</h1>
+        <div class="post-detail-meta">
+          <span class="meta-tag" id="post-category">Categoria</span>
+          <span id="post-date">Aguarde...</span>
+        </div>
+      </header>
+
+      <!-- Imagem de Capa do Artigo -->
+      <div class="post-detail-capa" id="post-capa-wrapper" style="display: none;">
+        <img src="" alt="" id="post-capa-img">
+      </div>
+
+      <!-- Corpo Principal do Post (HTML/Markdown Renderizado) -->
+      <section class="post-detail-body" id="post-body">
+        <p>Aguarde, o conteúdo está sendo recuperado do banco de dados...</p>
+      </section>
+
+      <!-- Seção de Comentários do Leitor -->
+      <section class="comments-section" aria-labelledby="comments-title">
+        <h2 class="comments-section-title" id="comments-title">
+          Comentários <span id="comments-count">0</span>
+        </h2>
+
+        <!-- Lista Dinâmica de Comentários -->
+        <div class="comments-list" id="comments-list-box">
+          <div class="no-comments" id="no-comments-msg">Nenhum comentário enviado ainda. Seja o primeiro a comentar!</div>
+        </div>
+
+        <!-- Formulário de Comentários -->
+        <div class="comment-form-container">
+          <h3 class="comment-form-title">Deixe sua opinião</h3>
+          <form class="comment-form" id="form-comment">
+            <div class="comment-input-wrapper">
+              <label for="comment-name">Seu Nome *</label>
+              <input type="text" id="comment-name" name="comment-name" placeholder="Como gostaria de ser chamado?" required autocomplete="name">
+            </div>
+            <div class="comment-input-wrapper">
+              <label for="comment-text">Seu Comentário *</label>
+              <textarea id="comment-text" name="comment-text" placeholder="Escreva o que achou deste artigo..." required></textarea>
+            </div>
+            <button type="submit" id="btn-submit-comment" class="btn-submit-comment">Enviar Comentário</button>
+          </form>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- Firebase SDKs compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  <!-- Script de Configuração do Firebase -->
+  <script src="about.js"></script>
+
+  <!-- Marcação de Tipo de Página e Chamada do Script Global -->
+  <script>
+    window.BLOG_TIPO = "detalhe";
+  </script>
+  <script src="js/blog.js"></script>
+</body>
+</html>

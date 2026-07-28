@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="shortcut icon" href="icon/favicon.ico" type="image/x-icon">
     <title>Home - Nelson Dev</title>
+
+    <!-- =================================================================
+         CONFIGURAÇÃO DO GOOGLE ANALYTICS E GOOGLE ADSENSE
+         Substitua os IDs pelos seus identificadores reais obtidos nos painéis.
+         ================================================================= -->
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- Google AdSense (Script Principal) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -14,7 +30,14 @@
         <ul>
             <li><a href="#" class="active">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="calculadoras/financas/juros-compostos/">Calculadora</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">Calculadoras</a>
+                <ul class="dropdown-menu">
+                    <li><a href="calculadoras/financas/juros-compostos/">Juros Compostos</a></li>
+                </ul>
+            </li>
+            <li><a href="postagens.html">Postagens</a></li>
+            <li><a href="noticias.html">Notícias</a></li>
             <li><a href="#">Cases</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
@@ -30,6 +53,20 @@
     </section>
 
     <div class="sec" id="sec">
+        <!-- Google AdSense - Banner Topo da Home -->
+        <div class="adsense-banner-container" style="margin: 0 auto 30px auto; text-align: center; max-width: 100%; overflow: hidden;">
+            <span style="display: block; font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; font-family: sans-serif;">Publicidade</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="1111111111"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
         <h2>Parallax Scroll Efeito</h2>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit adipisci inventore veritatis eos error, 
             nemo voluptatem porro cum ex quia aliquam nulla nisi, deleniti atque accusamus, id quas. 

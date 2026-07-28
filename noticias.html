@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Avançado -->
+  <title>Notícias Tech - Nelson Dev</title>
+  <meta name="description" content="Acompanhe as últimas notícias do mundo da tecnologia, atualizações de softwares, lançamentos de hardware e tendências de inovação com Nelson Dev.">
+  <meta name="keywords" content="notícias de tecnologia, tech news, novidades ti, Nelson Dev, inovação, atualizações web">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://martinsnelson.github.io/noticias.html">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://martinsnelson.github.io/noticias.html">
+  <meta property="og:title" content="Notícias Tech - Nelson Dev">
+  <meta property="og:description" content="Acompanhe as últimas notícias do mundo da tecnologia, atualizações de softwares, lançamentos de hardware e tendências de inovação com Nelson Dev.">
+  <meta property="og:image" content="https://martinsnelson.github.io/img/blog-default.jpg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://martinsnelson.github.io/noticias.html">
+  <meta name="twitter:title" content="Notícias Tech - Nelson Dev">
+  <meta name="twitter:description" content="Acompanhe as últimas notícias do mundo da tecnologia, atualizações de softwares, lançamentos de hardware e tendências de inovação com Nelson Dev.">
+  <meta name="twitter:image" content="https://martinsnelson.github.io/img/blog-default.jpg">
+
+  <!-- Estilos Globais -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="shortcut icon" href="icon/favicon.ico" type="image/x-icon">
+
+  <!-- Dados Estruturados JSON-LD para Resultados Ricos no Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://martinsnelson.github.io/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Notícias",
+        "item": "https://martinsnelson.github.io/noticias.html"
+      }
+    ]
+  }
+  </script>
+
+  <!-- =================================================================
+       CONFIGURAÇÃO DO GOOGLE ANALYTICS E GOOGLE ADSENSE
+       Substitua os IDs pelos seus identificadores reais obtidos nos painéis.
+       ================================================================= -->
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+  <!-- Google AdSense (Script Principal) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Cabeçalho / Menu Superior Responsivo -->
+  <header>
+    <h1><a href="index.html" class="logo">Nelson Dev</a></h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#sec">About</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle">Calculadoras</a>
+        <ul class="dropdown-menu">
+          <li><a href="calculadoras/financas/juros-compostos/">Juros Compostos</a></li>
+        </ul>
+      </li>
+      <li><a href="postagens.html">Postagens</a></li>
+      <li><a href="noticias.html" class="active">Notícias</a></li>
+      <li><a href="index.html#sec">Cases</a></li>
+      <li><a href="index.html#sec">Contact</a></li>
+    </ul>
+  </header>
+
+  <!-- Seção Principal de Conteúdo -->
+  <main class="blog-container">
+    <!-- Google AdSense - Banner Superior -->
+    <div class="adsense-banner-container" style="margin: 0 auto 30px auto; text-align: center; max-width: 100%; overflow: hidden;">
+      <span style="display: block; font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; font-family: sans-serif;">Publicidade</span>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="2222222222"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <header class="blog-header">
+      <h2>Notícias Tech</h2>
+      <p>Fique por dentro das últimas notícias, novidades do ecossistema de software e tendências tecnológicas mundiais.</p>
+    </header>
+
+    <!-- Grid Dinâmico de Notícias -->
+    <section class="blog-grid" id="grid-postagens" aria-label="Listagem de notícias de tecnologia">
+      <!-- Skeletons visuais exibidos antes do processamento do Javascript -->
+      <div class="skeleton-card" aria-hidden="true">
+        <div class="skeleton-capa"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-line short"></div>
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line desc-1"></div>
+          <div class="skeleton-line desc-2"></div>
+          <div class="skeleton-line desc-3"></div>
+        </div>
+      </div>
+      <div class="skeleton-card" aria-hidden="true">
+        <div class="skeleton-capa"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-line short"></div>
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line desc-1"></div>
+          <div class="skeleton-line desc-2"></div>
+          <div class="skeleton-line desc-3"></div>
+        </div>
+      </div>
+      <div class="skeleton-card" aria-hidden="true">
+        <div class="skeleton-capa"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-line short"></div>
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line desc-1"></div>
+          <div class="skeleton-line desc-2"></div>
+          <div class="skeleton-line desc-3"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Paginação por Cursor -->
+    <div class="pagination-area">
+      <button type="button" id="btn-carregar-mais" class="btn-load-more" style="display: none;">Carregar Mais</button>
+    </div>
+  </main>
+
+  <!-- Firebase SDKs compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  <!-- Script de Configuração do Firebase da raiz -->
+  <script src="about.js"></script>
+
+  <!-- Configuração de Coleção Dinâmica e Script Global Público -->
+  <script>
+    window.BLOG_TIPO = "noticias";
+  </script>
+  <script src="js/blog.js"></script>
+</body>
+</html>

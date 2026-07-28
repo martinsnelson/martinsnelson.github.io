@@ -182,3 +182,713 @@ section img#moon{
         font-size: 12vw;
     }
 }
+
+/* ==========================================
+   Estilos do Blog (Postagens e Notícias)
+   ========================================== *//* Layout de Conteúdo e Containers */
+.blog-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 150px 20px 60px 20px; /* Padding superior aumentado para afastar do cabeçalho fixo */
+    min-height: calc(100vh - 100px);
+}
+
+/* Reset de cabeçalhos, seções e imagens internas do blog para anular heranças indesejadas do layout da Home */
+.blog-container header,
+.blog-header,
+.post-detail-header {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    z-index: 1 !important;
+    background: transparent !important;
+    text-align: center !important;
+}
+
+.blog-container section,
+.post-detail-wrapper section,
+.blog-grid,
+.comments-section,
+.post-detail-body {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    overflow: visible !important;
+    justify-content: normal !important;
+    align-items: normal !important;
+    background: transparent !important;
+}
+
+.blog-container img,
+.blog-grid img,
+.post-card img,
+.post-detail-wrapper img {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    display: block !important;
+}
+
+.blog-header {
+    margin-bottom: 50px !important;
+}
+
+.blog-header h2 {
+    font-size: 3em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.blog-header p {
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 10px;
+}
+/* CSS Grid de Cards Premium */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* Card Visualmente Rico */
+.post-card {
+    background: rgba(28, 5, 34, 0.6); /* Transparente escuro baseado no tema parallax */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.post-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(117, 151, 222, 0.4);
+    box-shadow: 0 12px 30px rgba(117, 151, 222, 0.25);
+}
+
+/* Capa do Post com Efeito de Zoom */
+.post-card-capa {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    background-color: #1c0522;
+}
+
+.post-card-capa img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.post-card:hover .post-card-capa img {
+    transform: scale(1.08);
+}
+
+/* Corpo do Card */
+.post-card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.post-card-meta {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-card-meta .meta-tag {
+    background: rgba(117, 151, 222, 0.15);
+    color: #7597de;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.post-card-title {
+    font-size: 1.35em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1.3;
+    transition: color 0.2s ease;
+}
+
+.post-card:hover .post-card-title {
+    color: #7597de;
+}
+
+.post-card-desc {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.post-card-footer {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #7597de;
+}
+
+.post-card-footer svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    margin-left: 6px;
+    transition: transform 0.2s ease;
+}
+
+.post-card:hover .post-card-footer svg {
+    transform: translateX(4px);
+}
+
+/* Botões de Ação e Paginação */
+.pagination-area {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn-load-more {
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 35px;
+    border-radius: 40px;
+    background: #fff;
+    color: #2b1055;
+    font-size: 1.1em;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+}
+
+.btn-load-more:hover {
+    background: #7597de;
+    color: #fff;
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(117, 151, 222, 0.4);
+}
+
+.btn-load-more:disabled {
+    background: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Skeletons de Carregamento Assíncrono */
+.skeleton-card {
+    background: rgba(28, 5, 34, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+}
+
+.skeleton-capa {
+    height: 200px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.skeleton-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 15px;
+}
+
+.skeleton-line {
+    height: 16px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+.skeleton-line.short { width: 40%; }
+.skeleton-line.title { height: 28px; width: 85%; }
+.skeleton-line.desc-1 { width: 100%; }
+.skeleton-line.desc-2 { width: 90%; }
+.skeleton-line.desc-3 { width: 60%; }
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Layout de Visualização de Post Detalhado */
+.post-detail-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(28, 5, 34, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 40px;
+    color: #fff;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.post-detail-back {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: #7597de;
+    font-weight: 600;
+    margin-bottom: 30px;
+    transition: color 0.2s ease;
+}
+
+.post-detail-back:hover {
+    color: #fff;
+}
+
+.post-detail-back svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    margin-right: 8px;
+}
+
+.post-detail-header {
+    margin-bottom: 30px !important;
+    text-align: left !important;
+}
+
+.post-detail-title {
+    font-size: 2.8em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.post-detail-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    align-items: center;
+}
+
+.post-detail-meta .meta-tag {
+    background: rgba(117, 151, 222, 0.15);
+    color: #7597de;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.post-detail-capa {
+    width: 100%;
+    max-height: 450px;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 35px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.post-detail-capa img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Corpo do Post Formatado (Markdown/HTML) */
+.post-detail-body {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 50px;
+}
+
+.post-detail-body p {
+    margin-bottom: 20px;
+}
+
+.post-detail-body h2 {
+    font-size: 1.8em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    margin: 40px 0 20px 0;
+}
+
+.post-detail-body h3 {
+    font-size: 1.4em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #fff;
+    margin: 30px 0 15px 0;
+}
+
+.post-detail-body ul, .post-detail-body ol {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.post-detail-body li {
+    margin-bottom: 8px;
+}
+
+.post-detail-body blockquote {
+    border-left: 4px solid #7597de;
+    background: rgba(117, 151, 222, 0.08);
+    padding: 15px 20px;
+    margin: 25px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.post-detail-body pre {
+    background: #11141a;
+    border-radius: 8px;
+    padding: 20px;
+    overflow-x: auto;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.post-detail-body code {
+    font-family: 'Courier New', Courier, monospace;
+    background: rgba(255,255,255,0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+
+.post-detail-body pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.9em;
+}
+
+/* Área de Comentários */
+.comments-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 40px;
+    margin-top: 50px;
+}
+
+.comments-section-title {
+    font-size: 1.6em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comments-section-title span {
+    font-size: 0.85em;
+    background: rgba(255,255,255,0.1);
+    padding: 2px 10px;
+    border-radius: 20px;
+    color: rgba(255,255,255,0.7);
+}
+
+/* Lista de Comentários */
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.comment-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-author {
+    font-weight: 600;
+    color: #7597de;
+    font-size: 1rem;
+}
+
+.comment-date {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+}
+
+.comment-content {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.8);
+    word-break: break-word;
+}
+
+.no-comments {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    padding: 30px 0;
+    font-style: italic;
+}
+
+/* Formulário de Envio de Comentários */
+.comment-form-container {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    padding: 25px;
+}
+
+.comment-form-title {
+    font-size: 1.25em;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.comment-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.comment-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.comment-input-wrapper label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.comment-form input[type="text"],
+.comment-form textarea {
+    width: 100%;
+    background: rgba(28, 5, 34, 0.5);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.comment-form input[type="text"]:focus,
+.comment-form textarea:focus {
+    border-color: #7597de;
+}
+
+.comment-form textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.btn-submit-comment {
+    background: #7597de;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    justify-self: end;
+    transition: all 0.2s ease;
+}
+
+.btn-submit-comment:hover {
+    background: #fff;
+    color: #2b1055;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255,255,255,0.15);
+}
+
+.btn-submit-comment:disabled {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.3);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Responsividade do Blog */
+@media (max-width: 768px) {
+    .blog-container {
+        padding-top: 140px;
+    }
+    
+    .blog-header h2 {
+        font-size: 2.2em;
+    }
+    
+    .post-detail-wrapper {
+        padding: 25px;
+    }
+    
+    .post-detail-title {
+        font-size: 2em;
+    }
+    
+    .post-detail-capa {
+        max-height: 300px;
+    }
+}
+
+/* ==========================================
+   Estilos do Menu Dropdown de Calculadoras
+   ========================================== */
+
+/* Posiciona os submenus relativos ao li pai */
+header ul li.dropdown {
+    position: relative;
+}
+
+/* Menu Dropdown com efeito Premium (Fade e Slide Down) */
+header ul li.dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(28, 5, 34, 0.95); /* Fundo escuro coeso com o tema */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 8px 0;
+    min-width: 200px;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    z-index: 1100;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-top: 10px;
+}
+
+/* Revela o dropdown ao passar o mouse */
+header ul li.dropdown:hover .dropdown-menu,
+header ul li.dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Itens internos do dropdown */
+header ul li.dropdown .dropdown-menu li {
+    margin: 0 !important;
+    width: 100%;
+    display: block;
+}
+
+header ul li.dropdown .dropdown-menu li a {
+    display: block;
+    width: 100%;
+    padding: 10px 20px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    text-decoration: none;
+    border-radius: 0 !important;
+    background: transparent !important;
+    text-align: left;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+header ul li.dropdown .dropdown-menu li a:hover {
+    background: rgba(117, 151, 222, 0.15) !important;
+    color: #7597de !important;
+}
+
+/* Ajustes responsivos para o menu em dispositivos móveis */
+@media (max-width: 768px) {
+    header ul li.dropdown .dropdown-menu {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        box-shadow: none;
+        border: none;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 5px 0;
+        margin: 5px 0 0 0;
+        min-width: 100%;
+        display: none;
+    }
+    
+    header ul li.dropdown:hover .dropdown-menu {
+        display: block;
+        transform: none;
+    }
+    
+    header ul li.dropdown .dropdown-menu li a {
+        text-align: center;
+        padding: 8px 20px !important;
+    }
+}

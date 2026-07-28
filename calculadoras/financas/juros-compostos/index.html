@@ -19,24 +19,20 @@
   <link rel="stylesheet" href="styles.css?v=1.0.1">
 
   <!-- =================================================================
-       GOOGLE ANALYTICS (Gtag.js)
-       Cole o script de acompanhamento global do Google Analytics (gtag.js) abaixo deste comentário.
-       Exemplo:
-       <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-       <script>
-         window.dataLayer = window.dataLayer || [];
-         function gtag(){dataLayer.push(arguments);}
-         gtag('js', new Date());
-         gtag('config', 'G-XXXXXXXXXX');
-       </script>
+       CONFIGURAÇÃO DO GOOGLE ANALYTICS E GOOGLE ADSENSE
+       Substitua os IDs pelos seus identificadores reais obtidos nos painéis.
        ================================================================= -->
+  <!-- Google Analytics (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 
-  <!-- =================================================================
-       GOOGLE ADSENSE (Script Principal)
-       Cole o script do Google AdSense abaixo deste comentário para habilitar anúncios em seu site.
-       Exemplo:
-       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-       ================================================================= -->
+  <!-- Google AdSense (Script Principal) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 
   <!-- Dados Estruturados de BreadcrumbList em JSON-LD -->
   <script type="application/ld+json">
@@ -148,8 +144,19 @@
 
       <!-- =================================================================
            BLOCO DE ANÚNCIO ADSENSE (Topo da Calculadora - Exemplo Inline/Banner)
-           Cole o código do seu bloco de anúncios (Ad Unit) abaixo deste comentário.
            ================================================================= -->
+      <div class="adsense-banner-container" style="margin: 0 auto 20px auto; text-align: center; max-width: 100%; overflow: hidden;">
+        <span style="display: block; font-size: 11px; color: var(--text-muted, #888); text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; font-family: sans-serif;">Publicidade</span>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="4444444444"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
 
       <div class="calculator-grid">
         

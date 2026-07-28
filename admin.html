@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Nelson Dev</title>
+  
+  <!-- Estilos Internos Isolados para o Painel Administrativo Local -->
+  <style>
+    :root {
+      --bg-dark: #0d0f12;
+      --panel-bg: #161a20;
+      --border-color: #262e38;
+      --text-main: #f5f6f8;
+      --text-muted: #8a99ad;
+      --accent-purple: #8b5cf6;
+      --accent-blue: #3b82f6;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --radius: 8px;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    
+    .admin-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      border-bottom: 1.5px solid var(--border-color);
+      padding-bottom: 20px;
+    }
+    
+    h1 {
+      font-size: 1.8em;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+    
+    h1 span {
+      color: var(--accent-purple);
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--accent-purple);
+      color: #fff;
+    }
+    
+    .btn-primary:hover {
+      background-color: #7c3aed;
+      transform: translateY(-1px);
+    }
+    
+    .btn-danger {
+      background-color: var(--accent-red);
+      color: #fff;
+    }
+    
+    .btn-danger:hover {
+      background-color: #dc2626;
+    }
+    
+    .btn-sec {
+      background-color: transparent;
+      border: 1.5px solid var(--border-color);
+      color: var(--text-main);
+    }
+    
+    .btn-sec:hover {
+      background-color: rgba(255,255,255,0.03);
+    }
+    
+    /* Área de Login */
+    .login-box {
+      max-width: 400px;
+      margin: 100px auto 0 auto;
+      background-color: var(--panel-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    
+    .login-box h2 {
+      font-size: 1.4em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    /* Layout de Grade e Formulários */
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 30px;
+    }
+    
+    @media (max-width: 900px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .card {
+      background-color: var(--panel-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+    
+    .card-title {
+      font-size: 1.25em;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      background-color: var(--bg-dark);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent-purple);
+    }
+    
+    textarea {
+      height: 250px;
+      resize: vertical;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    
+    .char-count {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      position: absolute;
+      right: 5px;
+      top: 0;
+    }
+    
+    .char-count.warning {
+      color: var(--accent-red);
+      font-weight: bold;
+    }
+    
+    /* Upload de Capa */
+    .upload-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .file-input-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+    
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      cursor: pointer;
+      height: 100%;
+      width: 100%;
+    }
+    
+    .preview-thumbnail {
+      width: 100%;
+      height: 150px;
+      border-radius: var(--radius);
+      border: 1.5px dashed var(--border-color);
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-color: var(--bg-dark);
+    }
+    
+    .preview-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Preview de Markdown ao Vivo */
+    .preview-area {
+      background-color: var(--bg-dark);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 20px;
+      min-height: 200px;
+      max-height: 400px;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    .preview-area p { margin-bottom: 15px; }
+    .preview-area h2 { font-size: 1.4em; margin: 25px 0 10px 0; color: #fff; }
+    .preview-area h3 { font-size: 1.2em; margin: 20px 0 10px 0; color: #fff; }
+    .preview-area pre { background: #161a20; padding: 15px; border-radius: 6px; overflow-x: auto; margin-bottom: 15px; }
+    
+    /* Lista de Artigos */
+    .post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+    
+    .post-list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--bg-dark);
+      border: 1.5px solid var(--border-color);
+      padding: 12px 18px;
+      border-radius: var(--radius);
+    }
+    
+    .post-list-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .post-list-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #fff;
+    }
+    
+    .post-list-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    
+    .badge {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    
+    .badge-postagens { background-color: rgba(139, 92, 246, 0.15); color: var(--accent-purple); }
+    .badge-noticias { background-color: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+  </style>
+
+  <!-- Biblioteca Marked.js para converter Markdown em HTML no preview -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+  <div class="admin-container">
+    
+    <!-- TELA DE LOGIN (Visível por Padrão) -->
+    <div id="login-section" class="login-box">
+      <h2>Painel Nelson Dev</h2>
+      <div class="form-group">
+        <label for="admin-email">E-mail de Login</label>
+        <input type="email" id="admin-email" placeholder="email@exemplo.com">
+      </div>
+      <div class="form-group">
+        <label for="admin-password">Senha</label>
+        <input type="password" id="admin-password" placeholder="Digite sua senha">
+      </div>
+      <button type="button" id="btn-login" class="btn btn-primary" style="width: 100%;">Entrar</button>
+    </div>
+
+    <!-- TELA DO PAINEL (Ocultada por Padrão) -->
+    <div id="panel-section" style="display: none;">
+      <header>
+        <h1>Painel de Controle <span>Nelson Dev</span></h1>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <span id="user-info" style="font-size: 0.9rem; color: var(--text-muted);">Administrador</span>
+          <button type="button" id="btn-logout" class="btn btn-sec">Sair</button>
+        </div>
+      </header>
+
+      <div class="admin-grid">
+        
+        <!-- Coluna da Esquerda: Formulário de Publicação -->
+        <main>
+          <div class="card">
+            <h2 class="card-title">Criar Nova Publicação</h2>
+            <form id="form-publish">
+              
+              <div class="form-group" style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                  <label for="pub-destiny">Destino da Publicação</label>
+                  <select id="pub-destiny" required>
+                    <option value="postagens">Postagens (Blog Dev)</option>
+                    <option value="noticias">Notícias (Mundo Tech)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="pub-title">Título do Post *</label>
+                <span id="title-counter" class="char-count">0/60</span>
+                <input type="text" id="pub-title" placeholder="Título chamativo focado em SEO" required maxlength="80">
+              </div>
+
+              <div class="form-group">
+                <label for="pub-slug">Slug (URL Amigável) *</label>
+                <input type="text" id="pub-slug" placeholder="meu-primeiro-artigo" required>
+              </div>
+
+              <div class="form-group">
+                <label for="pub-meta-desc">Meta Description *</label>
+                <span id="meta-counter" class="char-count">0/160</span>
+                <textarea id="pub-meta-desc" style="height: 80px;" placeholder="Resumo atrativo para listagens e resultados do Google (máx. 160 caracteres)" required maxlength="200"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="pub-keywords">Tags / Keywords</label>
+                <input type="text" id="pub-keywords" placeholder="javascript, firebase, html (separadas por vírgula)">
+              </div>
+
+              <div class="form-group">
+                <label for="pub-img-url">URL da Imagem de Capa</label>
+                <div class="upload-container">
+                  <input type="text" id="pub-img-url" style="flex: 1;" placeholder="Cole a URL ou suba um arquivo ao lado">
+                  <div class="file-input-wrapper">
+                    <button type="button" class="btn btn-sec">Upload</button>
+                    <input type="file" id="pub-img-file" accept="image/*">
+                  </div>
+                </div>
+                <div class="preview-thumbnail" id="capa-preview-box">
+                  <span style="color: var(--text-muted); font-size: 0.85rem;">Nenhuma imagem carregada</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="pub-content">Corpo do Artigo (Markdown) *</label>
+                <textarea id="pub-content" placeholder="Escreva o artigo utilizando sintaxe Markdown básica..." required></textarea>
+              </div>
+
+              <button type="submit" id="btn-publish" class="btn btn-primary" style="width: 100%; height: 50px;">Publicar Artigo</button>
+
+            </form>
+          </div>
+        </main>
+
+        <!-- Coluna da Direita: Preview e Gerenciador -->
+        <aside>
+          <!-- Card de Preview ao Vivo -->
+          <div class="card">
+            <h2 class="card-title">Preview em Tempo Real</h2>
+            <div class="preview-area" id="markdown-preview">
+              <p style="color: var(--text-muted); font-style: italic;">Escreva algo no formulário para visualizar a renderização...</p>
+            </div>
+          </div>
+
+          <!-- Card de Publicações Recentes -->
+          <div class="card">
+            <h2 class="card-title" style="justify-content: space-between; flex-wrap: wrap; gap: 5px;">
+              Publicações no Banco
+              <div style="display: flex; gap: 5px;">
+                <button type="button" id="btn-seed" class="btn btn-primary" style="padding: 4px 8px; font-size: 0.75rem; background-color: var(--accent-green); border: none;">Popular Seed</button>
+                <button type="button" id="btn-refresh" class="btn btn-sec" style="padding: 4px 8px; font-size: 0.75rem;">Atualizar</button>
+              </div>
+            </h2>
+            <div class="post-list" id="recent-posts-list">
+              <div class="no-comments" style="padding: 10px 0;">Nenhuma publicação carregada.</div>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Firebase SDKs compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  <!-- Script de Configuração do Firebase -->
+  <script src="about.js"></script>
+
+  <!-- Lógica do Painel Admin -->
+  <script src="js/admin.js"></script>
+</body>
+</html>
