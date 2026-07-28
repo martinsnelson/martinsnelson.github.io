@@ -1,0 +1,52 @@
+Se comunique sempre em português do Brasil.
+
+Crie um simulador de juros compostos em HTML, CSS e JavaScript.
+
+Quero que o simulador tenha:
+
+## Descrição curta explicando o funcionamento do simulador com:
+- O objetivo do simulador.
+- Exemplos reais de uso (investimentos, reserva financeira, aportes mensais etc.).
+
+## Dados de entrada:
+- Valor inicial
+- Taxa de juros
+- Tipo da taxa (mensal/anual)
+- Período
+- Unidade do período (meses/anos)
+- Investimento mensal
+
+## Resultado
+
+### Totais
+- Total em juros
+- Valor total investido
+- Valor total final
+
+## Tabela mês a mês com as colunas:
+- Mês
+- Juros do mês
+- Total investido
+- Juros acumulados
+- Valor acumulado
+
+## Antes de criar o simulador pesquise:
+- Como tratar taxa anual -> mensal.
+- Como aplicar juros compostos mês a mês.
+- Como considerar aportes mensais.
+- Como calcular total investido.
+- Como calcular total em juros.
+
+### Layout
+- Layout clean.
+- Título no topo
+- Descrição/Funcionamento
+- Formulário.
+- Botões de Calcular e Limpar.
+- Totais
+- Tabela mês a mês
+
+## Requisitos
+- Tudo em JavaScript puro.
+- Função para formatar valores em moeda brasileira.
+- Tabela gerada dinamicamente.
