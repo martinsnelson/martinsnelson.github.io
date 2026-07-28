@@ -1,52 +1,72 @@
 Se comunique sempre em português do Brasil.
 
-Crie um simulador de juros compostos em HTML, CSS e JavaScript.
+Atue como um desenvolvedor Front-End Sênior e Especialista em SEO. 
+Crie uma feature em projeto existente (HTML5, CSS3 e JavaScript puro) de uma Calculadora de Juros Compostos com layout fiel à referência visual, 
+totalmente responsiva e otimizada para SEO.
 
-Quero que o simulador tenha:
+---
 
-## Descrição curta explicando o funcionamento do simulador com:
-- O objetivo do simulador.
-- Exemplos reais de uso (investimentos, reserva financeira, aportes mensais etc.).
+### 1. Estrutura de Navegação e SEO On-Page
+- **Simulação de URL:** `[site.com/calculadoras/financas/juros-compostos/]`
+- **Title Tag:** `Calculadora de Juros Compostos | Simule e Calcule Online`
+- **H1 Principal:** `Calculadora de Juros Compostos`
+- **Menu Visual:** `Calculadoras -> Finanças -> Calculadora de Juros Compostos`
+- **Breadcrumb:** `Home > Calculadoras > Finanças > Calculadora de Juros Compostos` (inclua o schema `BreadcrumbList` em JSON-LD no `<head>`).
 
-## Dados de entrada:
-- Valor inicial
-- Taxa de juros
-- Tipo da taxa (mensal/anual)
-- Período
-- Unidade do período (meses/anos)
-- Investimento mensal
+---
 
-## Resultado
+### 2. Identidade Visual e Layout (Baseado na Referência)
+Use **variáveis CSS (`:root`)** para facilitar a customização de cores da marca (ex: `--primary-dark: #2f3542`, `--accent-blue: #8faec4`, `--bg-light: #f8f9fa`, `--border-color: #e0e0e0`).
 
-### Totais
-- Total em juros
-- Valor total investido
-- Valor total final
+#### A. Cabeçalhos de Seção
+- Cada bloco principal (Formulário, Resultado e Gráfico) deve ter um cabeçalho elegante com um **quadrado escuro contendo um ícone à esquerda** e o título em caixa alta ao lado (ex: `SIMULADOR DE JUROS COMPOSTOS`, `RESULTADO:`, `GRÁFICO`).
 
-## Tabela mês a mês com as colunas:
-- Mês
-- Juros do mês
-- Total investido
-- Juros acumulados
-- Valor acumulado
+#### B. Formulário de Dados de Entrada
+Crie os campos em grid responsivo com estilo de Input Group:
+- **Valor Inicial:** Input com prefixo estático `R$`.
+- **Taxa de Juros:** Input com prefixo `%` e um `<select>` acoplado à direita para escolher entre `Anual` e `Mensal`.
+- **Período:** Input numérico com um `<select>` acoplado à direita para escolher entre `Anos` e `Meses`.
+- **Investimento Mensal:** Input com prefixo estático `R$`.
+- **Botões de Ação (Alinhados à direita):**
+  - **LIMPAR:** Botão no estilo outline/branco com texto e borda escuros e um ícone de limpar/foguete.
+  - **CALCULAR:** Botão de alto destaque (fundo escuro/preto, texto branco e ícone de calculadora).
 
-## Antes de criar o simulador pesquise:
-- Como tratar taxa anual -> mensal.
-- Como aplicar juros compostos mês a mês.
-- Como considerar aportes mensais.
-- Como calcular total investido.
-- Como calcular total em juros.
+#### C. Cards de Resultado (3 Colunas)
+Exiba os resultados em 3 cards destacados com bordas suaves e fundo claro:
+1. **Total em Juros:** Título em cinza e o valor em **azul/azul-claro de destaque** (ex: `R$ 111.472,10`).
+2. **Valor Total Investido:** Título em cinza e valor em texto escuro (ex: `R$ 300.000,00`).
+3. **Valor Total Final:** Título em cinza e valor em texto escuro destacado (ex: `R$ 411.472,10`).
 
-### Layout
-- Layout clean.
-- Título no topo
-- Descrição/Funcionamento
-- Formulário.
-- Botões de Calcular e Limpar.
-- Totais
-- Tabela mês a mês
+#### D. Gráfico de Rosca (Donut Chart)
+- Adicione uma seção **GRÁFICO** com uma representação visual em **gráfico de rosca (Donut Chart)** comparando o **Total Investido** (cor grafite/cinza escuro) versus **Total Juros** (cor azul claro), incluindo legenda explicativa.
+- *Nota:* Pode utilizar SVG/Canvas nativo em JS ou a biblioteca `Chart.js` via CDN apenas para renderizar o gráfico.
 
-## Requisitos
-- Tudo em JavaScript puro.
-- Função para formatar valores em moeda brasileira.
-- Tabela gerada dinamicamente.
+#### E. Tabela Mês a Mês (Dinâmica)
+Abaixo do gráfico, exiba uma tabela detalhada com as colunas:
+`Mês` | `Juros do mês` | `Total investido` | `Juros acumulados` | `Valor acumulado`
+
+---
+
+### 3. Lógica Financeira do Algoritmo (JS)
+- **Conversão de Taxas:** Se a taxa for `Anual` e o cálculo for mensal, converta via fórmula de taxa equivalente: `i_mensal = (1 + i_anual)^(1/12) - 1`.
+- **Aportes Mensais:** Considere o aporte sendo adicionado mês a mês ao montante para o cálculo composto.
+- **Totais:**
+  - `Total Investido` = Valor inicial + (Aporte mensal × N de meses).
+  - `Valor Total Final` = Montante total acumulado no último mês.
+  - `Total em Juros` = Valor Total Final - Total Investido.
+- **Formatação Monetária:** Utilize `Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })` para todos os valores monetários.
+
+---
+
+### 4. Conteúdo Complementar e SEO (Abaixo da Ferramenta)
+- **Texto Explicativo:** Apresentação do objetivo da calculadora e exemplos de uso (reserva financeira, aposentadoria, investimentos).
+- **Fórmula:** Explicação simples da fórmula de juros compostos.
+- **FAQ:** Perguntas frequentes sobre investimentos e juros compostos.
+- **Dados Estruturados:** Inclua o Schema `FAQPage` em JSON-LD no `<head>`.
+
+---
+
+### 5. Requisitos Técnicos
+- Código limpo, semântico e pronto para rodar.
+- O botão **Limpar** deve zerar as entradas, esconder/limpar os resultados, resetar o gráfico e a tabela.
+- Responsivo para telas mobile, tablets e desktops.
