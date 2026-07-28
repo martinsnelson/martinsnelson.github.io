@@ -110,6 +110,7 @@ async function listItems() {
       const a = document.createElement("a");
       a.href = data.url;
       a.target = "_blank";
+      a.rel = "noopener noreferrer";
       a.textContent = "Ver Arquivo";
       tdUrl.appendChild(a);
     } else {

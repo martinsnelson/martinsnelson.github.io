@@ -24,7 +24,7 @@
       <div class="menu-container">
         <div class="hamburger" id="hamburger">&#9776;</div>
         <div class="dropdown" id="dropdown">
-          <label style="color:#0f0; font-size:14px;">
+          <label>
             <input type="checkbox" id="toggle" />
             Auto Click Mouse
           </label>
@@ -109,7 +109,24 @@
   <script>
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        document.body.style.display = "block";
+        // Consulta a coleção admins para verificar privilégios do dashboard
+        db.collection("admins").doc(user.uid).get()
+          .then((doc) => {
+            if (doc.exists) {
+              document.body.style.display = "block";
+            } else {
+              alert("Acesso negado: Seu usuário não possui permissões administrativas.");
+              firebase.auth().signOut().then(() => {
+                window.location.href = "login.html";
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Erro ao validar privilégios: ", error);
+            firebase.auth().signOut().then(() => {
+              window.location.href = "login.html";
+            });
+          });
       } else {
         window.location.href = "login.html";
       }

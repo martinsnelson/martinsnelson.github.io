@@ -38,14 +38,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const titleCounter = document.getElementById("title-counter");
   const metaCounter = document.getElementById("meta-counter");
 
-  // 1. MONITORAMENTO DO ESTADO DE AUTENTICAÇÃO DO FIREBASE
+  // 1. MONITORAMENTO DO ESTADO DE AUTENTICAÇÃO DO FIREBASE (Validação Dinâmica de Admin)
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      // Usuário autenticado
-      loginSection.style.display = "none";
-      panelSection.style.display = "block";
-      userInfo.innerHTML = `Logado: <strong>${user.email}</strong><br><span style="font-size: 0.78rem; color: var(--accent-purple); display: block; margin-top: 2px;">UID: <strong style="user-select: all; cursor: pointer;" title="Clique para selecionar e copiar">${user.uid}</strong></span>`;
-      carregarPublicacoesExistentes();
+      // Consulta a coleção admins para verificar se o UID do usuário existe
+      db.collection("admins").doc(user.uid).get()
+        .then((doc) => {
+          if (doc.exists) {
+            // Usuário autenticado e possui privilégios de administrador
+            loginSection.style.display = "none";
+            panelSection.style.display = "block";
+            userInfo.innerHTML = `Logado: <strong>${user.email}</strong><br><span style="font-size: 0.78rem; color: var(--accent-purple); display: block; margin-top: 2px;">UID: <strong style="user-select: all; cursor: pointer;" title="Clique para selecionar e copiar">${user.uid}</strong></span>`;
+            carregarPublicacoesExistentes();
+          } else {
+            // Usuário autenticado mas não possui privilégios de administrador
+            alert("Acesso negado: Seu usuário não possui permissões administrativas.");
+            firebase.auth().signOut().then(() => {
+              recentPostsList.innerHTML = `<div class="no-comments">Nenhuma publicação carregada.</div>`;
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao verificar privilégios de admin: ", error);
+          alert("Erro ao validar privilégios administrativos. Conexão recusada.");
+          firebase.auth().signOut();
+        });
     } else {
       // Usuário deslogado
       loginSection.style.display = "block";
@@ -162,7 +179,8 @@ document.addEventListener("DOMContentLoaded", () => {
   textareaContent.addEventListener("input", () => {
     const markdownText = textareaContent.value;
     if (typeof marked !== 'undefined') {
-      markdownPreview.innerHTML = marked.parse(markdownText);
+      const rawHtml = marked.parse(markdownText);
+      markdownPreview.innerHTML = typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(rawHtml) : rawHtml;
     } else {
       markdownPreview.textContent = markdownText;
     }

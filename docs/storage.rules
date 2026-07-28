@@ -1,0 +1,22 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Função auxiliar para verificar se o usuário é administrador (através do Firestore)
+    function isAdmin() {
+      return request.auth != null && 
+        firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid));
+    }
+
+    // Regras para capas de postagens (Leitura pública, escrita apenas pelo Admin)
+    match /capas/{allPaths} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Regras para uploads do dashboard (Leitura e escrita apenas pelo Admin)
+    match /uploads/{allPaths} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

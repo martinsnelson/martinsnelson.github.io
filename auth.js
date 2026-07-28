@@ -26,27 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
-  document.getElementById("btnRegister").addEventListener("click", () => {
-    const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
 
-     if (!email || !password) {
-      showMessage("Preencha email e senha.", true);
-      return;
-    }
-
-    showProgressBar();
-
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        hideProgressBar();
-        showMessage("Usuário registrado com sucesso!", false);
-      })
-      .catch(error => {
-        hideProgressBar();
-        showMessage("Erro no registro: " + error.message);
-      });
-  });
 });
 
 

@@ -161,11 +161,12 @@ function inicializarLeitura() {
       capaWrapper.style.display = "none";
     }
 
-    // Renderiza o corpo em Markdown usando a Marked.js
+    // Renderiza o corpo em Markdown usando a Marked.js e DOMPurify para evitar XSS
     if (typeof marked !== 'undefined') {
-      bodyEl.innerHTML = marked.parse(item.conteudo || "");
+      const rawHtml = marked.parse(item.conteudo || "");
+      bodyEl.innerHTML = typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(rawHtml) : rawHtml;
     } else {
-      bodyEl.innerHTML = `<p>${(item.conteudo || "").replace(/\n/g, "<br>")}</p>`;
+      bodyEl.innerHTML = `<p>${escaparHTML(item.conteudo || "").replace(/\n/g, "<br>")}</p>`;
     }
 
     // 4. Inicializa o Sistema de Comentários para este Post usando seu ID real do Firestore
