@@ -10,8 +10,33 @@
   
   <title>Calculadora de Juros Compostos | Simule e Calcule Online</title>
   
-  <!-- Estilos da calculadora -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- Controle de Cache para Forçar Atualizações no Primeiro Acesso -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Estilos da calculadora (com cache-busting) -->
+  <link rel="stylesheet" href="styles.css?v=1.0.1">
+
+  <!-- =================================================================
+       GOOGLE ANALYTICS (Gtag.js)
+       Cole o script de acompanhamento global do Google Analytics (gtag.js) abaixo deste comentário.
+       Exemplo:
+       <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+       <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+         gtag('config', 'G-XXXXXXXXXX');
+       </script>
+       ================================================================= -->
+
+  <!-- =================================================================
+       GOOGLE ADSENSE (Script Principal)
+       Cole o script do Google AdSense abaixo deste comentário para habilitar anúncios em seu site.
+       Exemplo:
+       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+       ================================================================= -->
 
   <!-- Dados Estruturados de BreadcrumbList em JSON-LD -->
   <script type="application/ld+json">
@@ -118,6 +143,11 @@
     <main>
       <h1 class="main-title" id="calculadora-titulo">Calculadora de Juros Compostos</h1>
 
+      <!-- =================================================================
+           BLOCO DE ANÚNCIO ADSENSE (Topo da Calculadora - Exemplo Inline/Banner)
+           Cole o código do seu bloco de anúncios (Ad Unit) abaixo deste comentário.
+           ================================================================= -->
+
       <div class="calculator-grid">
         
         <!-- Formulário de Entrada -->
@@ -137,7 +167,7 @@
               <label for="valor-inicial">Valor Inicial</label>
               <div class="input-group">
                 <span class="input-addon">R$</span>
-                <input type="number" id="valor-inicial" name="valor-inicial" placeholder="0,00" min="0" step="0.01" required>
+                <input type="text" id="valor-inicial" name="valor-inicial" placeholder="0,00" inputmode="numeric" required>
               </div>
             </div>
 
@@ -146,7 +176,7 @@
               <label for="aporte-mensal">Investimento Mensal</label>
               <div class="input-group">
                 <span class="input-addon">R$</span>
-                <input type="number" id="aporte-mensal" name="aporte-mensal" placeholder="0,00" min="0" step="0.01" required>
+                <input type="text" id="aporte-mensal" name="aporte-mensal" placeholder="0,00" inputmode="numeric" required>
               </div>
             </div>
 
@@ -229,6 +259,11 @@
             </div>
           </section>
 
+          <!-- =================================================================
+               BLOCO DE ANÚNCIO ADSENSE (Meio da Calculadora - Exemplo Banner)
+               Cole o código do seu bloco de anúncios (Ad Unit) abaixo deste comentário.
+               ================================================================= -->
+
           <!-- Bloco do Gráfico -->
           <section class="calc-card" aria-labelledby="chart-section-title">
             <div class="section-header">
@@ -287,8 +322,25 @@
               </tbody>
             </table>
           </div>
+
+          <!-- Área de Captura de E-mail / Lead Generation para liberar a tabela -->
+          <div id="lead-capture-container" class="lead-capture-box">
+            <p id="lead-capture-message">Você está visualizando apenas as primeiras 7 parcelas da simulação.</p>
+            <div class="lead-form" id="lead-form-block">
+              <label for="lead-email" class="visually-hidden">Seu melhor E-mail</label>
+              <input type="email" id="lead-email" name="lead-email" placeholder="Digite seu e-mail para liberar a tabela completa" required autocomplete="email">
+              <button type="button" id="btn-liberar-tabela" class="btn btn-primary">VER MAIS</button>
+            </div>
+            <p class="lead-privacy">Respeitamos sua privacidade. Seus dados estão seguros e não enviamos spam.</p>
+          </div>
+
         </div>
       </section>
+
+      <!-- =================================================================
+           BLOCO DE ANÚNCIO ADSENSE (Abaixo da Tabela / Acima do FAQ - Exemplo Banner)
+           Cole o código do seu bloco de anúncios (Ad Unit) abaixo deste comentário.
+           ================================================================= -->
 
       <!-- Conteúdo Complementar Otimizado para SEO -->
       <article class="seo-content-section">
@@ -360,7 +412,7 @@
 
   <!-- Biblioteca Chart.js local (baixada anteriormente) -->
   <script src="chart.umd.min.js"></script>
-  <!-- Lógica JavaScript local da calculadora -->
-  <script src="script.js"></script>
+  <!-- Lógica JavaScript local da calculadora (com cache-busting) -->
+  <script src="script.js?v=1.0.1"></script>
 </body>
 </html>

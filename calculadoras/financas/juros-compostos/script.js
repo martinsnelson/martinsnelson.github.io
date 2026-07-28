@@ -17,8 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const resTotalFinal = document.getElementById('res-total-final');
   const tableBodyJuros = document.getElementById('table-body-juros');
 
+  // Elementos de Captura de Lead (E-mail)
+  const leadCaptureContainer = document.getElementById('lead-capture-container');
+  const inputLeadEmail = document.getElementById('lead-email');
+  const btnLiberarTabela = document.getElementById('btn-liberar-tabela');
+
   // Instância do Gráfico (Chart.js)
   let donutChartInstance = null;
+
+  // Estado de liberação da tabela (salvo localmente para persistência)
+  let emailLiberado = localStorage.getItem('calculadora_juros_email_liberado') === 'true';
 
   // Formatador de Moeda BRL
   const formatter = new Intl.NumberFormat('pt-BR', {
@@ -39,13 +47,31 @@ document.addEventListener('DOMContentLoaded', () => {
     limparCalculadora();
   });
 
+  // Listener para liberar a tabela completa com e-mail
+  btnLiberarTabela.addEventListener('click', () => {
+    liberarTabelaComEmail();
+  });
+
+  // Permite liberar pressionando Enter no campo de e-mail
+  inputLeadEmail.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      liberarTabelaComEmail();
+    }
+  });
+
   /**
    * Executa os cálculos matemáticos e atualiza a interface
    */
   function calcularJurosCompostos() {
+    // Função auxiliar para remover máscara de dinheiro e converter para float
+    const parseMoeda = (valorStr) => {
+      return parseFloat(valorStr.replace(/\./g, '').replace(',', '.')) || 0;
+    };
+
     // 1. Coleta e validação simples dos valores de entrada
-    const valorInicial = parseFloat(inputValorInicial.value) || 0;
-    const aporteMensal = parseFloat(inputAporteMensal.value) || 0;
+    const valorInicial = parseMoeda(inputValorInicial.value);
+    const aporteMensal = parseMoeda(inputAporteMensal.value);
     const taxaJurosBruta = parseFloat(inputTaxaJuros.value) || 0;
     const periodoBruto = parseInt(inputPeriodo.value, 10) || 0;
 
@@ -119,14 +145,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Preenche a tabela dinâmica com o histórico mês a mês
+   * Preenche a tabela dinâmica com o histórico mês a mês e gerencia o bloqueio/exibição
    */
   function preencherTabela(evolucao) {
     tableBodyJuros.innerHTML = '';
 
-    evolucao.forEach(item => {
+    // Atualiza estado do container de e-mail na tela
+    if (emailLiberado) {
+      leadCaptureContainer.classList.add('unlocked');
+    } else {
+      leadCaptureContainer.classList.remove('unlocked');
+    }
+
+    evolucao.forEach((item, index) => {
       const row = document.createElement('tr');
       
+      // Se não estiver liberado e passar das 7 primeiras parcelas, adiciona a classe hidden-row
+      if (!emailLiberado && index >= 7) {
+        row.classList.add('hidden-row');
+      }
+
       row.innerHTML = `
         <td>Mês ${item.mes}</td>
         <td>${formatter.format(item.jurosDoMes)}</td>
@@ -193,11 +231,42 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+   * Executa a captura do e-mail e libera a tabela inteira
+   */
+  function liberarTabelaComEmail() {
+    const email = inputLeadEmail.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      alert('Por favor, insira um e-mail válido.');
+      return;
+    }
+
+    // Salva no LocalStorage do navegador e atualiza o estado
+    localStorage.setItem('calculadora_juros_email_liberado', 'true');
+    emailLiberado = true;
+
+    // Oculta a caixa de captura
+    leadCaptureContainer.classList.add('unlocked');
+
+    // Remove o filtro oculto de todas as linhas de tabela
+    const hiddenRows = document.querySelectorAll('.table-results tbody tr.hidden-row');
+    hiddenRows.forEach(row => {
+      row.classList.remove('hidden-row');
+    });
+  }
+
+  /**
    * Reseta todo o estado da calculadora
    */
   function limparCalculadora() {
     // Limpa inputs
     form.reset();
+
+    // Se o e-mail não tiver sido liberado ainda, limpa o campo de entrada do e-mail
+    if (!emailLiberado && inputLeadEmail) {
+      inputLeadEmail.value = '';
+    }
 
     // Remove classes ativas de exibição
     resultsArea.classList.remove('active');
@@ -217,5 +286,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Rola de volta para o topo do formulário suavemente
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Inicializa as máscaras de entrada de moeda nos inputs do formulário
+  aplicarMascaraMoeda(inputValorInicial);
+  aplicarMascaraMoeda(inputAporteMensal);
+
+  /**
+   * Aplica máscara de moeda em tempo real durante a digitação (padrão pt-BR)
+   */
+  function aplicarMascaraMoeda(input) {
+    input.addEventListener('input', (e) => {
+      let value = e.target.value;
+      
+      // Remove tudo o que não for dígito
+      value = value.replace(/\D/g, '');
+      
+      if (value === '') {
+        e.target.value = '';
+        return;
+      }
+      
+      // Converte para float dividindo por 100 para ter as duas casas de centavos
+      const valorFloat = parseFloat(value) / 100;
+      
+      // Formata no padrão brasileiro de moeda (sem R$, que já está como addon fixo no HTML)
+      e.target.value = new Intl.NumberFormat('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(valorFloat);
+    });
   }
 });

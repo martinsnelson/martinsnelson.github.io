@@ -101,18 +101,13 @@ body {
   text-align: center;
 }
 
-/* Grid Principal da Calculadora */
+/* Grid Principal da Calculadora (Layout em Coluna Única Centralizada) */
 .calculator-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
-  margin-bottom: 3rem;
-}
-
-@media (min-width: 1024px) {
-  .calculator-grid {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 /* Blocos Principais */
@@ -600,4 +595,84 @@ label {
 
 .footer-calculator a:hover {
   text-decoration: underline;
+}
+
+/* Área de Captura de E-mail / Lead Generation */
+.lead-capture-box {
+  background-color: var(--accent-blue-light);
+  border: 1.5px dashed var(--accent-blue);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.lead-capture-box.unlocked {
+  display: none; /* Esconde a caixa de captura quando a tabela é liberada */
+}
+
+#lead-capture-message {
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .lead-form {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+}
+
+.lead-form input[type="email"] {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  width: 100%;
+  min-height: 48px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.lead-form input[type="email"]:focus {
+  border-color: var(--accent-blue);
+  background-color: #ffffff;
+}
+
+.lead-form button {
+  min-height: 48px;
+  width: 100%;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .lead-form button {
+    width: auto;
+  }
+}
+
+.lead-privacy {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+}
+
+/* Ocultação de linhas adicionais da tabela */
+.table-results tbody tr.hidden-row {
+  display: none;
 }
