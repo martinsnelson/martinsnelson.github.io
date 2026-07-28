@@ -16,9 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const resTotalInvestido = document.getElementById('res-total-investido');
   const resTotalFinal = document.getElementById('res-total-final');
   const tableBodyJuros = document.getElementById('table-body-juros');
+  
+  // Elemento do Banner de Erro
+  const errorMessageBox = document.getElementById('error-message-box');
 
-  // Elementos de Captura de Lead (E-mail)
+  // Elementos de Captura de Lead (Nome + E-mail)
   const leadCaptureContainer = document.getElementById('lead-capture-container');
+  const inputLeadName = document.getElementById('lead-name');
   const inputLeadEmail = document.getElementById('lead-email');
   const btnLiberarTabela = document.getElementById('btn-liberar-tabela');
 
@@ -47,16 +51,23 @@ document.addEventListener('DOMContentLoaded', () => {
     limparCalculadora();
   });
 
-  // Listener para liberar a tabela completa com e-mail
+  // Listener para liberar a tabela completa com o Lead (Nome + E-mail)
   btnLiberarTabela.addEventListener('click', () => {
-    liberarTabelaComEmail();
+    liberarTabelaComLead();
   });
 
-  // Permite liberar pressionando Enter no campo de e-mail
+  // Permite liberar pressionando Enter nos campos do lead
+  inputLeadName.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      liberarTabelaComLead();
+    }
+  });
+
   inputLeadEmail.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      liberarTabelaComEmail();
+      liberarTabelaComLead();
     }
   });
 
@@ -69,16 +80,37 @@ document.addEventListener('DOMContentLoaded', () => {
       return parseFloat(valorStr.replace(/\./g, '').replace(',', '.')) || 0;
     };
 
-    // 1. Coleta e validação simples dos valores de entrada
+    // Limpa erros anteriores
+    errorMessageBox.classList.remove('active');
+    errorMessageBox.textContent = '';
+
+    // 1. Coleta e validação dos valores de entrada
     const valorInicial = parseMoeda(inputValorInicial.value);
     const aporteMensal = parseMoeda(inputAporteMensal.value);
-    const taxaJurosBruta = parseFloat(inputTaxaJuros.value) || 0;
-    const periodoBruto = parseInt(inputPeriodo.value, 10) || 0;
+    const taxaJurosBrutaText = inputTaxaJuros.value.trim();
+    const periodoBrutoText = inputPeriodo.value.trim();
 
-    if (periodoBruto <= 0 || taxaJurosBruta < 0 || valorInicial < 0 || aporteMensal < 0) {
-      alert('Por favor, insira valores válidos. O período deve ser maior que zero.');
+    // Validações de Negócio
+    let erroDetectado = false;
+    let mensagemErro = '';
+
+    if (periodoBrutoText === '' || parseInt(periodoBrutoText, 10) <= 0) {
+      mensagemErro = 'O Período da simulação é obrigatório e deve ser maior do que zero.';
+      erroDetectado = true;
+    } else if (valorInicial <= 0 && aporteMensal <= 0) {
+      mensagemErro = 'Atenção: É obrigatório preencher o Valor Inicial ou o Investimento Mensal (pelo menos um deles deve ser maior do que zero).';
+      erroDetectado = true;
+    }
+
+    if (erroDetectado) {
+      errorMessageBox.textContent = mensagemErro;
+      errorMessageBox.classList.add('active');
+      errorMessageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
+
+    const taxaJurosBruta = parseFloat(taxaJurosBrutaText) || 0;
+    const periodoBruto = parseInt(periodoBrutoText, 10);
 
     const tipoTaxa = selectTipoTaxa.value; // 'mensal' ou 'anual'
     const tipoPeriodo = selectTipoPeriodo.value; // 'meses' ou 'anos'
@@ -231,17 +263,68 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Executa a captura do e-mail e libera a tabela inteira
+   * Executa a captura do nome/e-mail e grava os dados no Firebase Firestore
    */
-  function liberarTabelaComEmail() {
+  function liberarTabelaComLead() {
+    const nome = inputLeadName.value.trim();
     const email = inputLeadEmail.value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (nome === '') {
+      alert('Por favor, insira o seu nome.');
+      return;
+    }
 
     if (!emailRegex.test(email)) {
       alert('Por favor, insira um e-mail válido.');
       return;
     }
 
+    // Desabilita o botão para evitar múltiplos cliques rápidos
+    btnLiberarTabela.disabled = true;
+    btnLiberarTabela.textContent = "LIBERANDO...";
+
+    // Verifica se a instância global 'db' (Firestore) existe no escopo
+    if (typeof db !== 'undefined') {
+      // 1. Consulta se o e-mail já existe na base de dados para evitar duplicidade
+      db.collection("leads").where("email", "==", email).limit(1).get()
+      .then((querySnapshot) => {
+        if (!querySnapshot.empty) {
+          // Lead já cadastrado, não grava novamente. Apenas libera visualmente
+          console.log("Lead já cadastrado com este e-mail no Firebase. Liberando acesso.");
+          liberarTabelaUI();
+        } else {
+          // Lead não cadastrado, realiza a gravação do lead
+          db.collection("leads").add({
+            nome: nome,
+            email: email,
+            dataCaptura: firebase.firestore.FieldValue.serverTimestamp(),
+            calculadora: "Juros Compostos"
+          })
+          .then((docRef) => {
+            console.log("Novo lead gravado no Firebase com sucesso! ID:", docRef.id);
+            liberarTabelaUI();
+          })
+          .catch((error) => {
+            console.error("Erro ao salvar lead no Firebase, mas liberando tabela para manter usabilidade:", error);
+            liberarTabelaUI(); // Liberação de fallback em caso de erro na gravação
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Erro ao consultar lead no Firebase, liberando de qualquer forma:", error);
+        liberarTabelaUI(); // Liberação de fallback em caso de erro na consulta
+      });
+    } else {
+      console.warn("Instância global 'db' do Firebase não encontrada. Liberando localmente.");
+      liberarTabelaUI();
+    }
+  }
+
+  /**
+   * Realiza a liberação visual da tabela no DOM
+   */
+  function liberarTabelaUI() {
     // Salva no LocalStorage do navegador e atualiza o estado
     localStorage.setItem('calculadora_juros_email_liberado', 'true');
     emailLiberado = true;
@@ -254,6 +337,9 @@ document.addEventListener('DOMContentLoaded', () => {
     hiddenRows.forEach(row => {
       row.classList.remove('hidden-row');
     });
+
+    btnLiberarTabela.disabled = false;
+    btnLiberarTabela.textContent = "VER MAIS";
   }
 
   /**
@@ -263,9 +349,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Limpa inputs
     form.reset();
 
-    // Se o e-mail não tiver sido liberado ainda, limpa o campo de entrada do e-mail
-    if (!emailLiberado && inputLeadEmail) {
-      inputLeadEmail.value = '';
+    // Se o e-mail não tiver sido liberado ainda, limpa os campos de entrada do lead
+    if (!emailLiberado) {
+      if (inputLeadName) inputLeadName.value = '';
+      if (inputLeadEmail) inputLeadEmail.value = '';
+    }
+
+    // Limpa erros anteriores
+    if (errorMessageBox) {
+      errorMessageBox.classList.remove('active');
+      errorMessageBox.textContent = '';
     }
 
     // Remove classes ativas de exibição

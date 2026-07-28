@@ -623,46 +623,60 @@ label {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  justify-content: center;
-  align-items: center;
-  max-width: 500px;
-  margin: 0 auto;
+  max-width: 650px;
+  margin: 0.5rem auto 0 auto;
+  width: 100%;
 }
 
-@media (min-width: 640px) {
-  .lead-form {
-    flex-direction: row;
-    gap: 0.5rem;
-  }
+.lead-form input[type="text"],
+.lead-form input[type="email"],
+.lead-form button {
+  height: 48px;
+  box-sizing: border-box;
+  margin: 0;
+  line-height: normal;
 }
 
+.lead-form input[type="text"],
 .lead-form input[type="email"] {
-  flex: 1;
-  padding: 0.75rem 1rem;
+  width: 100%;
+  padding: 0 1rem;
   border: 1.5px solid var(--border-color);
   border-radius: var(--radius-md);
   font-size: 0.95rem;
-  width: 100%;
-  min-height: 48px;
   outline: none;
   font-family: inherit;
-  transition: border-color 0.2s ease;
-}
-
-.lead-form input[type="email"]:focus {
-  border-color: var(--accent-blue);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
   background-color: #ffffff;
 }
 
-.lead-form button {
-  min-height: 48px;
-  width: 100%;
-  white-space: nowrap;
+.lead-form input[type="text"]:focus,
+.lead-form input[type="email"]:focus {
+  border-color: var(--accent-blue);
 }
 
-@media (min-width: 640px) {
+.lead-form button {
+  width: 100%;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .lead-form {
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .lead-form input[type="text"],
+  .lead-form input[type="email"] {
+    flex: 1;
+  }
   .lead-form button {
     width: auto;
+    padding: 0 2rem;
+    flex-shrink: 0;
   }
 }
 
@@ -675,4 +689,103 @@ label {
 /* Ocultação de linhas adicionais da tabela */
 .table-results tbody tr.hidden-row {
   display: none;
+}
+
+/* Banner de Mensagens de Erro */
+.error-message-banner {
+  display: none;
+  background-color: #fee2e2;
+  border: 1.5px solid #ef4444;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 2rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.error-message-banner.active {
+  display: block;
+}
+
+/* Ajustes de Responsividade Mobile Premium (iPhone 8, 11+, Androids Novos) */
+@media (max-width: 480px) {
+  .calculator-container {
+    padding: 0 0.75rem;
+    margin: 1rem auto;
+  }
+  
+  .main-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .calc-card {
+    padding: 1.25rem;
+  }
+  
+  .section-title {
+    font-size: 1rem;
+  }
+  
+  .input-group {
+    min-height: 44px;
+  }
+  
+  .input-group input {
+    padding: 0.6rem;
+    font-size: 0.95rem;
+  }
+  
+  .actions-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .actions-container .btn {
+    width: 100%;
+    min-height: 48px;
+  }
+  
+  .results-grid {
+    gap: 0.75rem;
+  }
+  
+  .result-card {
+    padding: 1rem;
+  }
+  
+  .result-card-value {
+    font-size: 1.15rem;
+  }
+  
+  .result-card-value.highlight-blue {
+    font-size: 1.25rem;
+  }
+  
+  .chart-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .table-results th, 
+  .table-results td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+  
+  .seo-content-section {
+    padding: 1.25rem;
+  }
+  
+  .seo-content-section h2 {
+    font-size: 1.25rem;
+  }
 }

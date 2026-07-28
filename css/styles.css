@@ -120,3 +120,65 @@ section img#moon{
     z-index: 9;
     transform: translateY(100px);
 }
+
+/* Regras de Responsividade para a Landing Page Parallax (Home) */
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        position: absolute;
+    }
+    
+    header ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header ul li {
+        margin: 5px 10px;
+    }
+    
+    section {
+        padding: 50px 20px;
+    }
+    
+    section h2#text {
+        font-size: 10vw; /* Adapta o tamanho do texto do Parallax */
+        right: -150px; /* Ajusta o ponto de surgimento do texto no mobile */
+    }
+    
+    .sec {
+        padding: 50px 20px;
+    }
+    
+    .sec h2 {
+        font-size: 2.2em;
+    }
+    
+    .sec p {
+        font-size: 1em;
+    }
+    
+    #btn {
+        font-size: 1.2em;
+        padding: 6px 20px;
+        transform: translateY(80px);
+    }
+}
+
+@media (max-width: 480px) {
+    header ul li {
+        margin: 5px;
+    }
+    header ul li a {
+        padding: 4px 10px;
+        font-size: 0.85rem;
+    }
+    section h2#text {
+        font-size: 12vw;
+    }
+}

@@ -143,6 +143,9 @@
     <main>
       <h1 class="main-title" id="calculadora-titulo">Calculadora de Juros Compostos</h1>
 
+      <!-- Box de Erro Acessível (Oculto por padrão) -->
+      <div id="error-message-box" class="error-message-banner" role="alert" aria-live="assertive"></div>
+
       <!-- =================================================================
            BLOCO DE ANÚNCIO ADSENSE (Topo da Calculadora - Exemplo Inline/Banner)
            Cole o código do seu bloco de anúncios (Ad Unit) abaixo deste comentário.
@@ -327,11 +330,15 @@
           <div id="lead-capture-container" class="lead-capture-box">
             <p id="lead-capture-message">Você está visualizando apenas as primeiras 7 parcelas da simulação.</p>
             <div class="lead-form" id="lead-form-block">
+              <label for="lead-name" class="visually-hidden">Seu Nome</label>
+              <input type="text" id="lead-name" name="lead-name" placeholder="Digite seu nome completo" required autocomplete="name">
+              
               <label for="lead-email" class="visually-hidden">Seu melhor E-mail</label>
-              <input type="email" id="lead-email" name="lead-email" placeholder="Digite seu e-mail para liberar a tabela completa" required autocomplete="email">
+              <input type="email" id="lead-email" name="lead-email" placeholder="Digite seu melhor e-mail" required autocomplete="email">
+              
               <button type="button" id="btn-liberar-tabela" class="btn btn-primary">VER MAIS</button>
             </div>
-            <p class="lead-privacy">Respeitamos sua privacidade. Seus dados estão seguros e não enviamos spam.</p>
+            <p class="lead-privacy">Respeitamos sua privacidade. Seus dados estão seguros e salvos no Firebase.</p>
           </div>
 
         </div>
@@ -409,6 +416,14 @@
     </footer>
 
   </div>
+
+  <!-- Firebase SDKs (v9 compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+  <!-- Script de Configuração do Firebase da raiz -->
+  <script src="../../../about.js"></script>
 
   <!-- Biblioteca Chart.js local (baixada anteriormente) -->
   <script src="chart.umd.min.js"></script>
